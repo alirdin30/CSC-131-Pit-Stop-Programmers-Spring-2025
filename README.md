@@ -8,10 +8,6 @@ The **Car Maintenance & Repair Management System** is a digital platform designe
 - [User Roles](#user-roles)
 - [System Requirements](#system-requirements)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Technologies Used](#technologies-used)
-- [Contributors](#contributors)
-- [License](#license)
 
 ## ✨ Features
 ✅ Online service scheduling  
