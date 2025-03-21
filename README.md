@@ -129,10 +129,3 @@ npm run dev
 - If the backend can't connect to MongoDB, ensure the MongoDB service is running
 - For frontend development issues, check the Vite development server logs
 
-## 📝 Contributing
-1. Create a new branch for your feature
-2. Make your changes
-3. Submit a pull request
-
-## 📄 License
-This project is licensed under the MIT License.
