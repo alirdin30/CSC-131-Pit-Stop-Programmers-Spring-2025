@@ -90,18 +90,6 @@ h1 {
     margin-bottom: 50px;  
     font-family: 'Times New Roman', Times, serif;
 }
-/*styling of the about us text*/
-.aboutUs {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 800px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    line-height: 1.6;
-    font-size: 18px;
-}
 
 /*general contact box styling*/
 .contact {
