@@ -1,0 +1,89 @@
+HTML for the nav bar, the links for the buttons themselve may not work depending where
+in the file system you are so you may have to change the path; copy this into the 
+top of the body in your document. This also includes the logo which works as a 
+home button
+
+<nav>
+        <div class="logo">
+            <a href="homePage.html" class="logo">
+                <img src="../PitStopProgrammersImages/PSPLogo.png" alt="Website Logo">
+            </a>
+        </div>
+        <ul>
+        <li><a href="../aboutUS/aboutUs.html" class="hover-underline">About Us</a></li>            
+        <li><a href="#" class="hover-underline">Services Offered</a></li>
+        <li><a href="../Account/account.html" class="hover-underline">Sign In</a></li>
+        </ul>
+</nav>
+
+
+
+CSS for the nav bar, the colorful underlining is not my code I found it online
+copy this into your linked css sheet 
+
+/*General Nav bar styling*/
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 10px 20px;
+}
+/*our logo size, can make bigger*/
+.logo img {
+    height: 65px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+nav ul li a:hover {
+    text-decoration: none;
+}
+/*the next following sections are all for underlining the Nav Bar, code I found*/
+.hover-underline {
+    font-size: 2rem;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
+}
+
+.hover-underline::after,
+.hover-underline::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #3eb3f7, #f81111);
+    bottom: -5px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease-out;
+}
+
+.hover-underline::before {
+    top: -5px;
+    transform-origin: left;
+}
+
+.hover-underline:hover::after,
+.hover-underline:hover::before {
+    transform: scaleX(1);
+}
