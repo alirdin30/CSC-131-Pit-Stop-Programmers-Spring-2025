@@ -22,7 +22,10 @@ a {
 /* Page Layout Styles */
 .home-page,
 .about-page,
-.account-page {
+.select-login-page,
+.customer-login-page,
+.register-page,
+.forgot-password-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -188,19 +191,96 @@ h1 {
   margin: 0;
 }
 
-/* Account Page Styles */
-.account {
+/* Select login Page Styles */
+.select-login,
+.register,
+.customer-login,
+.forgot-password {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 20px;
   margin: 20px auto;
-  max-width: 800px;
+  width: 50%;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   line-height: 1.6;
   transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.account:hover {
+.select-login:hover,
+.register:hover,
+.customer-login:hover {
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* blue button styles */
+.blue-button {
+  width: 100%;
+  margin: 15px auto;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.blue-button:hover {
+  background-color: #0056b3;
+}
+
+.blue-button:active {
+  background-color: #003f7f;
+}
+
+/*input box styles */
+.input-box-container {
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 15px auto;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.input-box {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.input-box:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.forgot-password-link {
+  display: block;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+  text-align: center;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
 }
