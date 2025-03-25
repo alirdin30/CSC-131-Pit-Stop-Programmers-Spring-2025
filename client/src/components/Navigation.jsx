@@ -3,7 +3,7 @@ import PSPLogo from '../assets/PitStopProgrammersImages/PSPLogo.png';
 
 const Navigation = () => {
   const location = useLocation();
-  const isAccountPage = location.pathname === '/account';
+  const isAccountPage = location.pathname === '/select-login';
 
   return (
     <nav>
@@ -19,7 +19,7 @@ const Navigation = () => {
           {isAccountPage ? (
             <Link to="/register" className="hover-underline">Register</Link>
           ) : (
-            <Link to="/account" className="hover-underline">Sign In</Link>
+            <Link to="/select-login" className="hover-underline">Sign In</Link>
           )}
         </li>
       </ul>
