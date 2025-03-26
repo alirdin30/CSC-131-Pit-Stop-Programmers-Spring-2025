@@ -1,0 +1,354 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* Global link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Page Layout Styles */
+.home-page,
+.about-page,
+.select-login-page,
+.customer-login-page,
+.register-page,
+.forgot-password-page {
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: url("./assets/PitStopProgrammersImages/background.jpg") center/cover fixed no-repeat;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 10px 20px;
+}
+
+.logo img {
+  height: 65px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  font-family: 'Times New Roman', Times, serif;
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+/* Hover underline animation */
+.hover-underline {
+  font-size: 2rem;
+  color: #ffffff;
+  position: relative;
+  display: inline-block;
+}
+
+.hover-underline::after,
+.hover-underline::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #3eb3f7, #f81111);
+  bottom: -5px;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease-out;
+}
+
+.hover-underline::before {
+  top: -5px;
+  transform-origin: left;
+}
+
+.hover-underline:hover::after,
+.hover-underline:hover::before {
+  transform: scaleX(1);
+}
+
+/* Main content styles */
+h1 {
+  font-size: 50px;
+  margin-top: 100px;
+  margin-bottom: 50px;  
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Contact Section Styles */
+.contact {
+  background-color: rgba(51, 51, 51, 0.8);
+  color: white;
+  padding: 30px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 50px;
+  border-top: 2px solid #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.contact:hover {
+  background-color: rgba(51, 51, 51, 1);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+.contact p {
+  transition: text-decoration 0.3s ease-in-out; 
+}
+
+.contact p:hover {
+  text-decoration: underline; 
+}
+
+/* About Us Page Styles */
+.aboutUs {
+  background-color: rgba(2, 2, 2, 0.8);
+  color: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+.team-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-member {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  max-width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-5px);
+}
+
+.team-member img {
+  width: 100%;
+  width: 300px; 
+  height: 300px; 
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.team-member h3 {
+  margin: 10px 0 5px;
+  font-size: 22px;
+}
+
+.team-member p {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Select login Page Styles */
+.select-login,
+.register,
+.customer-login,
+.forgot-password {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  margin: 20px auto;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  line-height: 1.6;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-login:hover,
+.register:hover,
+.customer-login:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* blue button styles */
+.blue-button {
+  width: 100%;
+  margin: 15px auto;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.blue-button:hover {
+  background-color: #0056b3;
+}
+
+.blue-button:active {
+  background-color: #003f7f;
+}
+
+/*input box styles */
+.input-box-container {
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 15px auto;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.input-box {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.input-box:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.forgot-password-link {
+  display: block;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+  text-align: center;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+/* Account Page Styles */
+.account {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  line-height: 1.6;
+  transition: all 0.3s ease-in-out;
+}
+
+.account:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Reviews Section */
+.reviews {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  margin-top: 80px;
+}
+
+.reviews h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.review-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
+  justify-content: center;
+}
+
+.review {
+  background-color: rgba(51, 51, 51, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.review h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.stars {
+  color: gold;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+/*This allows for reviews to stack on smaller screens*/
+@media (max-width: 768px) {
+  .review-container {
+    grid-template-columns: repeat(1, 1fr); 
+  }
+}
