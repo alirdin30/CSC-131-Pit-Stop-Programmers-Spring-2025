@@ -81,7 +81,7 @@ top {
 }
 
 body { 
-    background: url("../PitStopProgrammersImages/background.jpg") center/cover fixed no-repeat;
+    background: url("../assets/PitStopProgrammersImages/background.jpg") center/cover fixed no-repeat;
 }
 
 .buttons {
