@@ -11,6 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  height: 100%;
 }
 
 /* Global link styles */
@@ -150,13 +151,13 @@ h1 {
 }
 
 .team-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
-  justify-items: center;
-  margin: 0 auto;
   max-width: 1200px;
+  margin: 0 auto;
 }
 
 .team-member {
@@ -174,6 +175,7 @@ h1 {
 }
 
 .team-member img {
+  width: 100%;
   width: 300px; 
   height: 300px; 
   object-fit: cover;
@@ -283,4 +285,70 @@ h1 {
 
 .forgot-password-link:hover {
   text-decoration: underline;
+}
+
+/* Account Page Styles */
+.account {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  line-height: 1.6;
+  transition: all 0.3s ease-in-out;
+}
+
+.account:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Reviews Section */
+.reviews {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  margin-top: 80px;
+}
+
+.reviews h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.review-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
+  justify-content: center;
+}
+
+.review {
+  background-color: rgba(51, 51, 51, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.review h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.stars {
+  color: gold;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+/*This allows for reviews to stack on smaller screens*/
+@media (max-width: 768px) {
+  .review-container {
+    grid-template-columns: repeat(1, 1fr); 
+  }
 }
