@@ -23,7 +23,7 @@ const HomePage = () => {
     <div className="home-page">
       <Navigation />
 
-      <h1>Pit Stop Programmers</h1>
+      <h1>Pit Stop Programmers - Auto Repair Services</h1>
 
       <section className="reviews">
         <h2>Customer Reviews</h2>
