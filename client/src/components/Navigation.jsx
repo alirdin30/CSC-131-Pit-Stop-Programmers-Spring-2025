@@ -21,7 +21,7 @@ const Navigation = () => {
           ) : (
             <Link to="/account" className="hover-underline">Sign In</Link>
           )}
-        </li>
+        </li> 
       </ul>
     </nav>
   );

@@ -24,7 +24,8 @@ a {
 /* Page Layout Styles */
 .home-page,
 .about-page,
-.account-page {
+.account-page,
+.confirmation {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -257,4 +258,24 @@ h1 {
   }
 }
 
+/* Confirmation Page */
+.confirmation-box {
+  display: inline-block;  /* Ensures the box only wraps content width */
+  background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+  color: white;
+  padding: 20px;  /* Spacing inside the box */
+  border-radius: 10px;  /* Rounded corners */
+  text-align: center;
+  margin: 20px auto;  /* Centers the box */
+}
+
+.confirmation-box ul {
+  list-style: none;  /* Removes bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.confirmation-box li {
+  padding: 5px 0;  /* Adds space between list items */
+}
 
