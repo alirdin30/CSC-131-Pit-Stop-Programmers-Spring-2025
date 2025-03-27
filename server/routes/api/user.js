@@ -27,6 +27,7 @@ router.post(
     body("email", "Please include a valid email").isEmail(),
     body("name", "Name is required").notEmpty(),
     body("password", "Password must be between 6 and 32 characters").isLength({ min: 6, max: 32 }),
+    body("role", "Invalid role").optional().isIn(["customer", "employee", "admin"]),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -34,13 +35,21 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, name, password } = req.body;
+    const { email, name, password, role } = req.body;
 
     try {
       // Check if the user already exists
       let user = await User.findOne({ email });
       if (user) {
         return res.status(400).json({ error: "User already exists" });
+      }
+
+      // Check if the role is "employee" or "admin"
+      if (role === "employee" || role === "admin") {
+        // Ensure the request is coming from an admin user
+        if (!req.user || req.user.role !== "admin") {
+          return res.status(403).json({ error: "Only admins can create employee or admin accounts" });
+        }
       }
 
       // Hash the password
@@ -52,7 +61,7 @@ router.post(
         email,
         name,
         password: hashedPassword,
-        role: "customer", // Default role is customer
+        role: role || "customer", // Default role is customer
       });
 
       await user.save();
