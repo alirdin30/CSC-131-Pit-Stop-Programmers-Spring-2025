@@ -23,9 +23,11 @@ a {
 /* Page Layout Styles */
 .home-page,
 .about-page,
-.select-login-page,
-.customer-login-page,
+.login-page,
 .register-page,
+.customer-account-page,
+.employee-account-page,
+.admin-account-page,
 .forgot-password-page {
   min-height: 100vh;
   margin: 0;
@@ -45,6 +47,19 @@ nav {
   justify-content: space-between;
   background: transparent;
   padding: 10px 20px;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  color: #f81111;
 }
 
 .logo img {
@@ -193,10 +208,9 @@ h1 {
   margin: 0;
 }
 
-/* Select login Page Styles */
-.select-login,
+/*login Page Styles */
 .register,
-.customer-login,
+.login,
 .forgot-password {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
@@ -212,10 +226,23 @@ h1 {
   align-items: center;
 }
 
-.select-login:hover,
 .register:hover,
-.customer-login:hover {
+.login:hover {
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Success message styling */
+.successMessage {
+  color: green;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+/* Error message styling */
+.errorMessage {
+  color: red;
+  font-size: 16px;
+  margin: 10px 0;
 }
 
 /* blue button styles */

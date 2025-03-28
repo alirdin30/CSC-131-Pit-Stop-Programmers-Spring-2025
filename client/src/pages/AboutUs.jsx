@@ -1,18 +1,18 @@
-import Navigation from '../components/Navigation';
-import vasiliy from '../assets/PitStopProgrammersImages/vasiliy.jpg';
-import jack from '../assets/PitStopProgrammersImages/jack.jpg';
-import michael from '../assets/PitStopProgrammersImages/michael.jpg';
-import jessica from '../assets/PitStopProgrammersImages/jessica.jpg';
-import francesco from '../assets/PitStopProgrammersImages/francesco.jpg';
-import valentina from '../assets/PitStopProgrammersImages/valentina.jpg';
+import Navigation from "../components/Navigation";
+import vasiliy from "../assets/PitStopProgrammersImages/vasiliy.jpg";
+import jack from "../assets/PitStopProgrammersImages/jack.jpg";
+import michael from "../assets/PitStopProgrammersImages/michael.jpg";
+import jessica from "../assets/PitStopProgrammersImages/jessica.jpg";
+import francesco from "../assets/PitStopProgrammersImages/francesco.jpg";
+import valentina from "../assets/PitStopProgrammersImages/valentina.jpg";
 
 const teamMembers = [
-  { name: 'Vasiliy', role: 'Oil and fluid maintenance specialist.', image: vasiliy },
-  { name: 'Jack', role: 'Alignment and tire specialist.', image: jack },
-  { name: 'Mike', role: 'Specialist in transmission and drivetrain systems.', image: michael },
-  { name: 'Jessica', role: 'Expert in electrical repairs.', image: jessica },
-  { name: 'Francesco', role: 'Expert in engine diagnostics and repair.', image: francesco },
-  { name: 'Valentina', role: 'Brake and suspension system expert.', image: valentina },
+  { name: "Vasiliy", role: "Oil and fluid maintenance specialist.", image: vasiliy },
+  { name: "Jack", role: "Alignment and tire specialist.", image: jack },
+  { name: "Mike", role: "Specialist in transmission and drivetrain systems.", image: michael },
+  { name: "Jessica", role: "Expert in electrical repairs.", image: jessica },
+  { name: "Francesco", role: "Expert in engine diagnostics and repair.", image: francesco },
+  { name: "Valentina", role: "Brake and suspension system expert.", image: valentina },
 ];
 
 const AboutUs = () => {

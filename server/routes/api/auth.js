@@ -1,5 +1,5 @@
 import express from 'express';
-import { body } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 import passport from 'passport';
 import '../../strategies/local-strategy.js';
 
@@ -12,11 +12,40 @@ router.post(
   '/api/auth/login',
   [
     body('email', 'Please include a valid email').isEmail(),
-    body('password', 'Password is required').exists(),
+    body('password', 'Password is required').notEmpty(),
   ],
-  passport.authenticate('local', { session: true }),
-  (req, res) => {
-    res.status(200).json({ message: 'User logged in successfully', user: req.user });
+  async (req, res, next) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors);
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Authenticate the user
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: 'Server error' });
+      }
+
+      if (!user) {
+        // If authentication fails, return the error message from `info`
+        return res.status(401).json({ message: info.message || 'Invalid credentials' });
+      }
+
+      // Log the user in
+      req.logIn(user, (err) => {
+        if (err) {
+          console.error(err.message);
+          return res.status(500).json({ message: 'Login failed' });
+        }
+
+        // Return success response with user details
+        return res.status(200).json({ message: 'User logged in successfully', user });
+      });
+    })
+    (req, res, next);
   }
 );
 
