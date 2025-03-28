@@ -69,7 +69,7 @@ const ScheduleAppointment = () => {
       setError("Please log in to schedule an appointment");
       setTimeout(() => {
         navigate("/login", { state: { returnTo: "/schedule-appointment", service: selectedService } });
-      }, 2000);
+      }, 3000);
       return;
     }
 
@@ -93,7 +93,13 @@ const ScheduleAppointment = () => {
       
       // Redirect to dashboard or confirmation page after a delay
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/Confirmation", { 
+          state: { 
+            service: selectedService.name, 
+            date: formattedDate,
+            time: appointmentTime // Pass the time
+          } 
+        });
       }, 3000);
     } catch (error) {
       console.error("Error scheduling appointment:", error);

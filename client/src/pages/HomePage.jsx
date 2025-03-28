@@ -1,5 +1,5 @@
 import Navigation from '../components/Navigation';
-
+//array of customer reviews
 const reviews = [
   {
     username: 'Anna8288',
@@ -17,27 +17,27 @@ const reviews = [
     text: 'Fast and friendly service! My car runs like new again.',
   },
 ];
-
+//this displays the websites main content
 const HomePage = () => {
   return (
     <div className="home-page">
       <Navigation />
 
       <h1>Pit Stop Programmers - Auto Repair Services</h1>
-
+      {/*customer reviews section*/}
       <section className="reviews">
         <h2>Customer Reviews</h2>
         <div className="review-container">
           {reviews.map((review, index) => (
             <div key={index} className="review">
-              <h3>{review.username}</h3>
-              <p className="stars">★★★★★</p>
+              <h3>{review.username}</h3>{/* username of the review */}
+              <p className="stars">★★★★★</p>{/* Five stars in the review */}
               <p>{review.text}</p>
             </div>
           ))}
         </div>
       </section>
-
+      {/* Contact information section */}
       <section className="contact">
         <h2>Contact Us</h2>
         <p>Email: pitstopprogrammers@gmail.com</p>

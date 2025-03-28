@@ -12,8 +12,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   height: 100%;
-  
-  height: 100%;
 }
 
 /* Global link styles */
@@ -32,7 +30,8 @@ a {
 .admin-account-page,
 .forgot-password-page,
 .services-page,
-.schedule-page {
+.schedule-page,
+.confirmation-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -41,35 +40,32 @@ a {
   color: white;
   display: flex;
   flex-direction: column;
-  /*padding-bottom: 50px;*/
 }
 
 /* Confirmation Page Styles */
-.confirmation {
+/* Confirmation Page Styles */
+.confirmation-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
-  }
-  
-.confirmation-box {
-   display: inline-block;  /* Ensures the box only wraps content width */
-   background-color: rgba(0, 0, 0, 0.7); /* Dark background */
-   color: white;
-    padding: 20px;  /* Spacing inside the box */
-    border-radius: 10px;  /* Rounded corners */
-    text-align: center;
-    margin: 20px auto;  /* Centers the box */
-  }
-  
-  .confirmation-box ul {
-    list-style: none;  /* Removes bullet points */
-    padding: 0;
-    margin: 0;
-  }
-  
-  .confirmation-box li {
-    padding: 5px 0;  /* Adds space between list items */
- }
+  text-align: center;
+}
+
+.confirmation-page-box {
+  display: inline-block;  
+  background-color: rgba(0, 0, 0, 0.7); 
+  color: white;
+  padding: 20px 15px;  
+  border-radius: 10px; 
+  text-align: center;
+  margin: 20px auto; 
+  width: fit-content; 
+  max-width: 90%; 
+  margin-top: 150px;
+}
+.confirmation-page-box h1 {
+  margin-top: 0; /* Removes extra space */
+}
 
 /* Navigation Styles */
 nav {
@@ -162,12 +158,11 @@ h1 {
   color: white;
   padding: 30px;
   text-align: center;
+  margin-top: auto;
   border-top: 2px solid #fff;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease-in-out;
-  width: 100%;
-  margin-top: auto; 
 }
 
 .contact:hover {
@@ -212,7 +207,7 @@ h1 {
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  width: 300px; 
+  max-width: 300px;
   transition: transform 0.3s ease;
 }
 
@@ -221,9 +216,11 @@ h1 {
 }
 
 .team-member img {
-  width: 100%;
   width: 300px; 
   height: 300px; 
+  width: 100%; 
+  max-width: 300px; 
+  height: 300px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -707,77 +704,6 @@ h1 {
   }
 }
 
-/*This allows for reviews to stack on smaller screens*/
-@media (max-width: 768px) {
-  .review-container {
-    grid-template-columns: repeat(1, 1fr); 
-  }
-}
-
-/* Confirmation Page */
-.confirmation-box {
-  display: inline-block;  /* Ensures the box only wraps content width */
-  background-color: rgba(0, 0, 0, 0.7); /* Dark background */
-  color: white;
-  padding: 20px;  /* Spacing inside the box */
-  border-radius: 10px;  /* Rounded corners */
-  text-align: center;
-  margin: 20px auto;  /* Centers the box */
-}
-
-.confirmation-box ul {
-  list-style: none;  /* Removes bullet points */
-  padding: 0;
-  margin: 0;
-}
-
-.confirmation-box li {
-  padding: 5px 0;  /* Adds space between list items */
-}
-
-
-/* Reviews Section */
-.reviews {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-  margin-top: 80px;
-}
-
-.reviews h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
-}
-
-.review-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 20px;
-  justify-content: center;
-}
-
-.review {
-  background-color: rgba(51, 51, 51, 0.9);
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.4);
-  text-align: center;
-}
-
-.review h3 {
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-
-.stars {
-  color: gold;
-  font-size: 18px;
-  margin-bottom: 8px;
-}
 /*This allows for reviews to stack on smaller screens*/
 @media (max-width: 768px) {
   .review-container {
