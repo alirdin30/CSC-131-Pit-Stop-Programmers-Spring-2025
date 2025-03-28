@@ -4,9 +4,7 @@ var url = "mongodb://localhost:27017/";
 i put these inside comments so i can get rid of the comments if i need them */
 
 /* boolean variables for service selection */
-/* NOTE: potential bug in the future, 
-leaving or refreshing the page may not reset variables
-i havent used any of these programming languages before so im not sure what happens*/
+
 var soil = false;
 var sair = false;
 var stire = false;
@@ -18,9 +16,13 @@ var salt = false;
 var strans = false;
 var semission = false;
 
-/* button functions */
-/* first 2 lines of the functions are to show the button is selected */
-/* the 3rd line is to set true/false if the service is selected */
+/* 
+button functions
+first 2 lines of the functions are to show the button is selected 
+the 1st line the getElementById part finds each button 
+the 2nd line the toggle part changes the css so the button appears selected after it is pressed
+the 3rd line is to set true if the service is selected and revert back to false if clicked again
+*/
 function oilselect() {
     var element = document.getElementById("oil");
     element.classList.toggle("select");
