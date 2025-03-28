@@ -1,27 +1,27 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
-import SelectLogin from './pages/SelectLogin';
 import './App.css';
-import CustomerLogin from './pages/CustomerLogin';
+import Login from './pages/Login';
 import CustomerAccount from './pages/CustomerAccount';
+import EmployeeAccount from './pages/EmployeeAccount';
+import AdminAccount from './pages/AdminAccount';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/select-login" element={<SelectLogin />} />
-        <Route path="/customer-login" element={<CustomerLogin />} /> 
-        <Route path="/services" element={<HomePage />} /> {/* TODO: Create Services page */}
-        <Route path="/register" element={<Register />} /> 
-        <Route path="/customer-account" element={<CustomerAccount />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/login" element={<Login />} /> 
+      <Route path="/services" element={<HomePage />} /> {/* TODO: Create Services page */}
+      <Route path="/register" element={<Register />} /> 
+      <Route path="/customer-account" element={<CustomerAccount />} />
+      <Route path="/employee-account" element={<EmployeeAccount />} />
+      <Route path="/admin-account" element={<AdminAccount />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+    </Routes>
   );
 }
 

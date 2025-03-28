@@ -15,19 +15,21 @@
 
 example from other project:
 elderName: {
+  type: String,
+  required: true,
+  trim: true
+},
+user: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'User',
+  required: true
+},
+responses: {
+  questionId: {
     type: String,
-    required: true,
-    trim: true
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
     required: true
   },
-  responses: [{
-    questionId: {
-      type: String,
-      required: true
+},
 
 Example models might include:
 - **User.js**: Outline of how user account information is stored in the database
