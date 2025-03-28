@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Navigation from "../components/Navigation";
 
 const ScheduleAppointment = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [appointmentDate, setAppointmentDate] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState(null);
   const [appointmentTime, setAppointmentTime] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -72,10 +74,13 @@ const ScheduleAppointment = () => {
     }
 
     try {
+      // Format date for API
+      const formattedDate = appointmentDate.toISOString().split('T')[0];
+      
       // Submit appointment with credentials
       const response = await axios.post("/api/appointments", {
         service: selectedService.name,
-        date: appointmentDate,
+        date: formattedDate,
         time: appointmentTime
       }, { withCredentials: true });
 
@@ -83,7 +88,7 @@ const ScheduleAppointment = () => {
       setMessage("Appointment scheduled successfully!");
       
       // Reset form
-      setAppointmentDate("");
+      setAppointmentDate(null);
       setAppointmentTime("");
       
       // Redirect to dashboard or confirmation page after a delay
@@ -104,7 +109,13 @@ const ScheduleAppointment = () => {
   };
 
   // Calculate minimum date (today)
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date();
+
+  // Filter out weekends (Saturday and Sunday)
+  const isWeekday = (date) => {
+    const day = date.getDay();
+    return day !== 0 && day !== 6;
+  };
 
   if (!selectedService) {
     return <div>Loading...</div>;
@@ -129,12 +140,17 @@ const ScheduleAppointment = () => {
         <form onSubmit={handleSubmit} className="appointment-form">
           <div className="form-group">
             <label htmlFor="appointment-date">Appointment Date:</label>
-            <input 
-              type="date" 
+            <DatePicker
+              selected={appointmentDate}
+              onChange={date => setAppointmentDate(date)}
+              minDate={today}
+              filterDate={isWeekday}
+              placeholderText="Select a date"
+              className="date-picker"
+              dateFormat="MMMM d, yyyy"
+              showPopperArrow={false}
               id="appointment-date"
-              min={today}
-              value={appointmentDate}
-              onChange={(e) => setAppointmentDate(e.target.value)}
+              required
             />
           </div>
           
@@ -144,6 +160,7 @@ const ScheduleAppointment = () => {
               id="appointment-time"
               value={appointmentTime}
               onChange={(e) => setAppointmentTime(e.target.value)}
+              required
             >
               <option value="">Select a time</option>
               {timeSlots.map((time) => (

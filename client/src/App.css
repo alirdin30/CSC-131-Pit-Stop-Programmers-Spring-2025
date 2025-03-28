@@ -481,7 +481,7 @@ h1 {
 .services-page h1 {
   text-align: center;
   margin-bottom: 2rem;
-  color: #333;
+  color: white;
 }
 
 .services-container {
@@ -489,87 +489,6 @@ h1 {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
-}
-
-/* Appointment Section Styles */
-.appointment-section {
-  background-color: #f5f5f5;
-  padding: 2rem;
-  border-radius: 8px;
-  margin-bottom: 3rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.appointment-section h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-.appointment-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-weight: bold;
-  color: #555;
-}
-
-.form-group input,
-.form-group select {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.selected-service {
-  padding: 0.75rem;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.schedule-button {
-  background-color: #1890ff;
-  color: white;
-  border: 1px solid #1890ff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.schedule-button:hover {
-  background-color: #0c7cd5;
-}
-
-.success-message {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 1rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-}
-
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 1rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
 }
 
 /* Schedule Appointment Page Styles */
@@ -694,6 +613,83 @@ h1 {
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
+}
+
+/* DatePicker Styles */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.date-picker {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.date-picker:hover, .date-picker:focus {
+  border-color: #3eb3f7;
+  outline: none;
+}
+
+/* Override react-datepicker default styles */
+.react-datepicker {
+  font-family: 'Times New Roman', Times, serif;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.react-datepicker__header {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.react-datepicker__current-month, 
+.react-datepicker__day-name, 
+.react-datepicker-time__header {
+  color: white;
+}
+
+.react-datepicker__day {
+  color: white;
+}
+
+.react-datepicker__day:hover {
+  background: linear-gradient(to right, #3eb3f7, #f81111);
+  color: white;
+  border-radius: 50%;
+}
+
+.react-datepicker__day--selected, 
+.react-datepicker__day--keyboard-selected {
+  background: linear-gradient(to right, #3eb3f7, #f81111);
+  color: white;
+  border-radius: 50%;
+}
+
+.react-datepicker__day--disabled {
+  color: #666;
+}
+
+.react-datepicker__navigation {
+  top: 10px;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: white;
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: #3eb3f7;
 }
 
 /* Responsive adjustments */
