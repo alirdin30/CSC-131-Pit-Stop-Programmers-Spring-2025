@@ -28,7 +28,8 @@ a {
 .customer-account-page,
 .employee-account-page,
 .admin-account-page,
-.forgot-password-page {
+.forgot-password-page,
+.services-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -400,6 +401,50 @@ h1 {
   font-size: 18px;
   margin-bottom: 8px;
 }
+
+/* Services Page Styles */
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-item {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  max-width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+}
+
+.service-title {
+  margin: 10px 0 5px;
+  font-size: 22px;
+  color: #ffffff;
+}
+
+.service-description {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 10px 0;
+}
+
+.service-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #3eb3f7;
+}
+
 /*This allows for reviews to stack on smaller screens*/
 @media (max-width: 768px) {
   .review-container {
