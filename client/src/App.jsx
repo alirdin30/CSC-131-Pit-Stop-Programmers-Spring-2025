@@ -9,6 +9,7 @@ import AdminAccount from './pages/AdminAccount';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Services from './pages/Services';
+import ScheduleAppointment from './pages/ScheduleAppointment';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/about" element={<AboutUs />} />
       <Route path="/login" element={<Login />} /> 
       <Route path="/services" element={<Services />} />
+      <Route path="/schedule-appointment" element={<ScheduleAppointment />} />
       <Route path="/register" element={<Register />} /> 
       <Route path="/customer-account" element={<CustomerAccount />} />
       <Route path="/employee-account" element={<EmployeeAccount />} />
