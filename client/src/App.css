@@ -30,7 +30,8 @@ a {
 .admin-account-page,
 .forgot-password-page,
 .services-page,
-.schedule-page {
+.schedule-page,
+.revenue-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
