@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Services from './pages/Services';
 import ScheduleAppointment from './pages/ScheduleAppointment';
+import Revenue from './pages/Revenue';
 
 function App() {
   return (
