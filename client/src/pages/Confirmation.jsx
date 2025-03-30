@@ -1,31 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/UserContext";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import axios from "axios";
 
 const Confirmation = () => {
-  const user = useContext(UserContext);
-  const [username, setUsername] = useState(user?.username || "Guest");
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Fetch username if not available in context (in case of refresh)
-  useEffect(() => {
-    if (!user?.username) {
-      const fetchUser = async () => {
-        try {
-          const response = await axios.get("/api/auth/status", { withCredentials: true });
-          if (response.data.user) {
-            setUsername(response.data.user.username);
-          }
-        } catch (error) {
-          setUsername("Guest");
-        }
-      };
-      fetchUser();
-    }
-  }, [user]);
 
   // Ensure location.state exists before accessing its properties
   useEffect(() => {
