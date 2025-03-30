@@ -1,5 +1,6 @@
 import Navigation from "../components/Navigation";
 
+// get sales from the database
 var oilsold = 0;
 var tiresold = 0;
 var brakesold = 0;
@@ -29,8 +30,6 @@ const Revenue = () => {
           <h3>{service.name}</h3>
           <p>Amount Sold: {service.sold}</p>
           <p>Total Revenue: ${service.revenue}</p>
-          <p>Total Cost: $XXXX</p>
-          <p>Total Profit: $XXXX</p>
         </div>
       ))}
       </section>
