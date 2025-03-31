@@ -25,6 +25,7 @@ function App() {
       <Route path="/employee-account" element={<EmployeeAccount />} />
       <Route path="/admin-account" element={<AdminAccount />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/revenue" element={<Revenue />} />
     </Routes>
   );
 }
