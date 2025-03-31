@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import CustomerAccount from './pages/CustomerAccount';
 import EmployeeAccount from './pages/EmployeeAccount';
 import AdminAccount from './pages/AdminAccount';
+import EditServices from './pages/EditServices';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Services from './pages/Services';
@@ -23,6 +24,9 @@ function App() {
       <Route path="/customer-account" element={<CustomerAccount />} />
       <Route path="/employee-account" element={<EmployeeAccount />} />
       <Route path="/admin-account" element={<AdminAccount />} />
+      <Route path="/edit-services" element={<EditServices />} />
+      <Route path="/admin-service-history" element={<AdminAccount />} /> {/*Once we make the service history page for the admin side, replace element here*/}
+      <Route path="/employee-log" element={<AdminAccount />} /> {/*Once we make the employee log page the admin side, replace element here*/}
       <Route path="/forgot-password" element={<ForgotPassword />} />
     </Routes>
   );
