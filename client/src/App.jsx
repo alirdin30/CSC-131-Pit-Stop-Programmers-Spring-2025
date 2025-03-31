@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Services from './pages/Services';
 import ScheduleAppointment from './pages/ScheduleAppointment';
+import Confirmation from './pages/Confirmation';
 import Revenue from './pages/Revenue';
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
       <Route path="/employee-account" element={<EmployeeAccount />} />
       <Route path="/admin-account" element={<AdminAccount />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/Confirmation" element={<Confirmation />} />
       <Route path="/revenue" element={<Revenue />} />
-    </Routes>
+    </Routes> 
   );
 }
 

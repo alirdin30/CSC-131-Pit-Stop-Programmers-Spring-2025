@@ -6,8 +6,8 @@ import PSPLogo from '../assets/PitStopProgrammersImages/PSPLogo.png';
 
 const Navigation = () => {
   const { userRole, setUserRole } = useContext(UserContext);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation();// Get current page location
+  const navigate = useNavigate();// Hook to navigate between pages
 
   const handleLogout = async () => {
     try {
@@ -19,6 +19,7 @@ const Navigation = () => {
     }
   };
 
+  // Function to determine which account-related link to display
   const getAccountLink = () => {
     // If the user is on their account page, show "Logout"
     if (
@@ -47,11 +48,13 @@ const Navigation = () => {
 
   return (
     <nav>
+      {/* Website Logo linking to Home Page */}
       <div className="logo">
         <Link to="/" className="logo">
           <img src={PSPLogo} alt="Website Logo" />
         </Link>
       </div>
+      {/* Navigation menu with links to different pages */}
       <ul>
         <li><Link to="/about" className="hover-underline">About Us</Link></li>
         <li><Link to="/services" className="hover-underline">Services Offered</Link></li>

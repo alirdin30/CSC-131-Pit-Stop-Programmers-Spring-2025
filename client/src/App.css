@@ -31,6 +31,7 @@ a {
 .forgot-password-page,
 .services-page,
 .schedule-page,
+.confirmation-page,
 .revenue-page {
   min-height: 100vh;
   margin: 0;
@@ -61,31 +62,29 @@ a {
 }
 
 /* Confirmation Page Styles */
-.confirmation {
+/* Confirmation Page Styles */
+.confirmation-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
-  }
-  
-.confirmation-box {
-   display: inline-block;  /* Ensures the box only wraps content width */
-   background-color: rgba(0, 0, 0, 0.7); /* Dark background */
-   color: white;
-    padding: 20px;  /* Spacing inside the box */
-    border-radius: 10px;  /* Rounded corners */
-    text-align: center;
-    margin: 20px auto;  /* Centers the box */
-  }
-  
-  .confirmation-box ul {
-    list-style: none;  /* Removes bullet points */
-    padding: 0;
-    margin: 0;
-  }
-  
-  .confirmation-box li {
-    padding: 5px 0;  /* Adds space between list items */
- }
+  text-align: center;
+}
+/* Styles for the box */
+.confirmation-page-box {
+  display: inline-block;  
+  background-color: rgba(0, 0, 0, 0.7); 
+  color: white;
+  padding: 20px 15px;  
+  border-radius: 10px; 
+  text-align: center;
+  margin: 20px auto; 
+  width: fit-content; 
+  max-width: 90%; 
+  margin-top: 150px;
+}
+.confirmation-page-box h1 {
+  margin-top: 0; /* Removes extra space */
+}
 
 /* Navigation Styles */
 nav {
@@ -179,7 +178,6 @@ h1 {
   padding: 30px;
   text-align: center;
   margin-top: auto;
-  margin-bottom: 50px;
   border-top: 2px solid #fff;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
@@ -237,9 +235,11 @@ h1 {
 }
 
 .team-member img {
-  width: 100%;
   width: 300px; 
   height: 300px; 
+  width: 100%; 
+  max-width: 300px; 
+  height: 300px;
   object-fit: cover;
   border-radius: 10px;
 }
