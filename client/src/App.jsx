@@ -11,22 +11,24 @@ import ForgotPassword from './pages/ForgotPassword';
 import Services from './pages/Services';
 import ScheduleAppointment from './pages/ScheduleAppointment';
 import Confirmation from './pages/Confirmation';
+import ApproveHours from './pages/ApproveHours'; 
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutUs />} />
-      <Route path="/login" element={<Login />} /> 
+      <Route path="/login" element={<Login />} />
       <Route path="/services" element={<Services />} />
       <Route path="/schedule-appointment" element={<ScheduleAppointment />} />
-      <Route path="/register" element={<Register />} /> 
+      <Route path="/register" element={<Register />} />
       <Route path="/customer-account" element={<CustomerAccount />} />
       <Route path="/employee-account" element={<EmployeeAccount />} />
       <Route path="/admin-account" element={<AdminAccount />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/Confirmation" element={<Confirmation />} />
-    </Routes> 
+      <Route path="/confirmation" element={<Confirmation />} />
+      <Route path="/approve-hours" element={<ApproveHours />} /> 
+    </Routes>
   );
 }
 

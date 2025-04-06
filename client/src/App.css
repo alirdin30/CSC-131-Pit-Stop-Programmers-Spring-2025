@@ -31,7 +31,8 @@ a {
 .forgot-password-page,
 .services-page,
 .schedule-page,
-.confirmation-page {
+.confirmation-page,
+.approve-hours {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -709,4 +710,16 @@ h1 {
   .review-container {
     grid-template-columns: repeat(1, 1fr); 
   }
+}
+
+.approve-hours-box {
+  display: inline-block;  
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px 15px;  
+  border-radius: 10px; 
+  text-align: center;
+  margin: 20px auto; 
+  width: fit-content; 
+  max-width: 90%; 
+  margin-top: 150px;
 }
