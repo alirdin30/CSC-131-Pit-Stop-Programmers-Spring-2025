@@ -11,6 +11,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Services from './pages/Services';
 import ScheduleAppointment from './pages/ScheduleAppointment';
 import Confirmation from './pages/Confirmation';
+import Employees from './pages/Employees';
 import Revenue from './pages/Revenue';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="/admin-account" element={<AdminAccount />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/Confirmation" element={<Confirmation />} />
+      <Route path="/employees" element={<Employees />} />
       <Route path="/revenue" element={<Revenue />} />
     </Routes> 
   );

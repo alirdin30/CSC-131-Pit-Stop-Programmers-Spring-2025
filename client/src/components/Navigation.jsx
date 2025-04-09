@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
 import axios from 'axios';
 import PSPLogo from '../assets/PitStopProgrammersImages/PSPLogo.png';
@@ -8,6 +8,22 @@ const Navigation = () => {
   const { userRole, setUserRole } = useContext(UserContext);
   const location = useLocation();// Get current page location
   const navigate = useNavigate();// Hook to navigate between pages
+  
+  // Check authentication status when component mounts
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await axios.get('/api/auth/status', { withCredentials: true });
+        if (response.data.user) {
+          setUserRole(response.data.user.role);
+        }
+      } catch (error) {
+        console.error('Error checking auth status:', error);
+      }
+    };
+    
+    checkAuthStatus();
+  }, [setUserRole]);
 
   const handleLogout = async () => {
     try {
@@ -58,6 +74,9 @@ const Navigation = () => {
       <ul>
         <li><Link to="/about" className="hover-underline">About Us</Link></li>
         <li><Link to="/services" className="hover-underline">Services Offered</Link></li>
+        {userRole === 'admin' && (
+          <li><Link to="/employees" className="hover-underline">Employees</Link></li>
+        )}
         <li>{getAccountLink()}</li>
       </ul>
     </nav>
