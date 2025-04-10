@@ -13,6 +13,7 @@ import ScheduleAppointment from './pages/ScheduleAppointment';
 import Confirmation from './pages/Confirmation';
 import Employees from './pages/Employees';
 import Revenue from './pages/Revenue';
+import CustomerHistory from './pages/CustomerHistory';
 
 function App() {
   return (
