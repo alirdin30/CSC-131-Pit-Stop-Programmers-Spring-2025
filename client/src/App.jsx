@@ -12,6 +12,8 @@ import Services from './pages/Services';
 import ScheduleAppointment from './pages/ScheduleAppointment';
 import Confirmation from './pages/Confirmation';
 import Employees from './pages/Employees';
+import PendingAppointments from './pages/PendingAppointments';
+import AssignedAppointments from './pages/AssignedAppointments';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/Confirmation" element={<Confirmation />} />
       <Route path="/employees" element={<Employees />} />
+      <Route path="/pending-appointments" element={<PendingAppointments />} />
+      <Route path="/assigned-appointments" element={<AssignedAppointments />} />
     </Routes> 
   );
 }
