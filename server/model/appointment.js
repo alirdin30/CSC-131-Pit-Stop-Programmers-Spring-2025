@@ -19,10 +19,15 @@ const AppointmentSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  assignedEmployee: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null
+  },
   status: {
     type: String,
-    enum: ["scheduled", "completed", "cancelled"],
-    default: "scheduled"
+    enum: ["pending", "assigned", "completed", "cancelled"],
+    default: "pending"
   },
   createdAt: {
     type: Date,

@@ -32,7 +32,9 @@ a {
 .services-page,
 .schedule-page,
 .confirmation-page,
-.employees-page {
+.employees-page,
+.pending-appointments-page,
+.assigned-appointments-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -41,6 +43,27 @@ a {
   color: white;
   display: flex;
   flex-direction: column;
+}
+
+/*Page Styles */
+.register,
+.login,
+.forgot-password,
+.employee-account,
+.pending-appointments,
+.assigned-appointments {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  margin: 20px auto;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  line-height: 1.6;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Confirmation Page Styles */
@@ -226,24 +249,6 @@ h1 {
   font-size: 16px;
   line-height: 1.4;
   margin: 0;
-}
-
-/*login Page Styles */
-.register,
-.login,
-.forgot-password {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 20px;
-  margin: 20px auto;
-  width: 50%;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-  line-height: 1.6;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .register:hover,
@@ -802,4 +807,109 @@ h1 {
   .review-container {
     grid-template-columns: repeat(1, 1fr); 
   }
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  color: white;
+}
+
+.appointments-table th {
+  background-color: rgba(51, 51, 51, 0.9);
+  font-weight: bold;
+  text-align: center;
+}
+
+.appointments-table td {
+  text-align: center;
+}
+
+.appointments-table tr:nth-child(even) {
+  background-color: rgba(51, 51, 51, 0.7);
+}
+
+.appointments-table tr:hover {
+  background-color: rgba(51, 51, 51, 0.9);
+}
+
+/* Button Styles */
+.assign-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.assign-button:hover {
+  background-color: #0056b3;
+}
+
+.assign-button:active {
+  background-color: #003f7f;
+}
+
+.complete-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.complete-button:hover {
+  background-color: #218838;
+}
+
+.complete-button:active {
+  background-color: #1e7e34;
+}
+
+/* Message Styles */
+.message {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Success message styling */
+.message.success {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Error message styling */
+.message.error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Loading Text */
+.pending-appointments-page p {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  margin-top: 20px;
 }
