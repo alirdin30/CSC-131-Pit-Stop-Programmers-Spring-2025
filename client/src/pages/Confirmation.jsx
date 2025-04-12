@@ -1,30 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import Navigation from '../components/Navigation';
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Navigation from "../components/Navigation";
+import axios from "axios";
 
-export default function ConfirmationPage() {
-    const [services, setServices] = useState([]);
+const Confirmation = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch("http://localhost:5000/api/services/last")
-            .then(response => response.json())
-            .then(data => setServices(data))
-            .catch(error => console.error("Error fetching services:", error));
-    }, []);
+  // Ensure location.state exists before accessing its properties
+  useEffect(() => {
+    if (!location.state || !location.state.service || !location.state.date || !location.state.time) {
+      navigate("/schedule-appointment"); // Redirect if state is missing
+    }
+  }, [location, navigate]);
 
-    return (
-        <div className="confirmation-page">
-            <Navigation />
-            <h1>Service Confirmation</h1>
-            {services.length > 0 ? (
-                <p>You have selected the following services:</p>
-            ) : (
-                <p>No services selected.</p>
-            )}
-            <ul>
-                {services.map((service, index) => (
-                    <li key={index}>{service}</li>
-                ))}
-            </ul>
-        </div>
-    );
-}
+  // Extract appointment details, default to empty string to prevent "undefined"
+  const service = location.state?.service || "";
+  const date = location.state?.date || "";
+  const time = location.state?.time || "";
+
+  return (
+    <div className="confirmation-page">
+      <Navigation />
+        
+      <div className="confirmation-page-box">
+        <h1>Appointment Confirmation</h1>
+        <p>
+          Hello, your appointment for {service} is set for {date} at {time}.
+        </p>
+
+        <p>Thank you for choosing Pit Stop Programmers! We look forward to serving you.</p>
+      </div>
+    </div>
+  );
+};
+
+export default Confirmation;

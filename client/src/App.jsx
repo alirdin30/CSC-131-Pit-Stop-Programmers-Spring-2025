@@ -11,6 +11,10 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Services from './pages/Services';
 import ScheduleAppointment from './pages/ScheduleAppointment';
+import Confirmation from './pages/Confirmation';
+import Employees from './pages/Employees';
+import PendingAppointments from './pages/PendingAppointments';
+import AssignedAppointments from './pages/AssignedAppointments';
 
 function App() {
   return (
@@ -32,7 +36,11 @@ function App() {
       <Route path="/admin-service-history" element={<AdminAccount />} /> {/*Once we make the service history page for the admin side, replace element here*/}
       <Route path="/employee-log" element={<AdminAccount />} /> {/*Once we make the employee log page for the admin side, replace element here*/}
       <Route path="/forgot-password" element={<ForgotPassword />} />
-    </Routes>
+      <Route path="/Confirmation" element={<Confirmation />} />
+      <Route path="/employees" element={<Employees />} />
+      <Route path="/pending-appointments" element={<PendingAppointments />} />
+      <Route path="/assigned-appointments" element={<AssignedAppointments />} />
+    </Routes> 
   );
 }
 

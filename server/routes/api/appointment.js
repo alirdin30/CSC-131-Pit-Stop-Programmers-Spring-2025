@@ -52,12 +52,61 @@ router.post(
 // @access  Private
 router.get('/api/appointments', auth, async (req, res) => {
   try {
-    const appointments = await Appointment.find({ user: req.user.id }).sort({ date: 1 });
-    
-    res.status(200).json(appointments);
+    const appointments = await Appointment.find().populate('user', 'name');
+    console.log({ appointments, loggedInEmployeeId: req.user.id });
+    res.status(200).json({ appointments, loggedInEmployeeId: req.user.id });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// @route   PUT /api/appointments/:id/assign
+// @desc    Assign an employee to an appointment
+// @access  Private
+router.put('/api/appointments/:id/assign', auth, async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    appointment.assignedEmployee = req.user.id;
+    appointment.status = "assigned"; // Update status to "assigned"
+    await appointment.save();
+
+    res.status(200).json({ message: "Appointment assigned successfully", appointment });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// @route   PUT /api/appointments/:id
+// @desc    Update the status of an appointment
+// @access  Private
+router.put('/api/appointments/:id', auth, async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    // Validate the status
+    if (!["pending", "assigned", "completed", "cancelled"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value" });
+    }
+
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    // Update the status
+    appointment.status = status;
+    await appointment.save();
+
+    res.status(200).json({ message: "Appointment status updated successfully", appointment });
+  } catch (error) {
+    console.error("Error updating appointment status:", error.message);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
