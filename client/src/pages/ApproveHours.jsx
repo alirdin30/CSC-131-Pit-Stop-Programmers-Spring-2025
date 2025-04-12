@@ -17,7 +17,7 @@ const ApproveHours = () => {
       } finally {
         setLoading(false);
       }
-    };
+    }; 
 
     fetchHours();
   }, []);
