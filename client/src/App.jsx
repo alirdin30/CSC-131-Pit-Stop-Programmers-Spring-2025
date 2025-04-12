@@ -14,6 +14,7 @@ import Confirmation from './pages/Confirmation';
 import Employees from './pages/Employees';
 import PendingAppointments from './pages/PendingAppointments';
 import AssignedAppointments from './pages/AssignedAppointments';
+import ApproveHours from './pages/ApproveHours';
 import Revenue from './pages/Revenue';
 import CustomerHistory from './pages/CustomerHistory';
 
@@ -22,10 +23,10 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutUs />} />
-      <Route path="/login" element={<Login />} /> 
+      <Route path="/login" element={<Login />} />
       <Route path="/services" element={<Services />} />
       <Route path="/schedule-appointment" element={<ScheduleAppointment />} />
-      <Route path="/register" element={<Register />} /> 
+      <Route path="/register" element={<Register />} />
       <Route path="/customer-account" element={<CustomerAccount />} />
       <Route path="/employee-account" element={<EmployeeAccount />} />
       <Route path="/admin-account" element={<AdminAccount />} />
@@ -34,6 +35,7 @@ function App() {
       <Route path="/employees" element={<Employees />} />
       <Route path="/pending-appointments" element={<PendingAppointments />} />
       <Route path="/assigned-appointments" element={<AssignedAppointments />} />
+      <Route path="/ApproveHours" element={<ApproveHours />} />
       <Route path="/revenue" element={<Revenue />} />
     </Routes> 
   );

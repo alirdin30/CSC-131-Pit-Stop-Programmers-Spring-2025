@@ -35,6 +35,8 @@ a {
 .employees-page,
 .pending-appointments-page,
 .assigned-appointments-page,
+.confirmation-page,
+.approve-hours,
 .revenue-page {
   min-height: 100vh;
   margin: 0;
@@ -930,4 +932,16 @@ h1 {
   font-size: 16px;
   color: white;
   margin-top: 20px;
+}
+
+.approve-hours-box {
+  display: inline-block;  
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px 15px;  
+  border-radius: 10px; 
+  text-align: center;
+  margin: 20px auto; 
+  width: fit-content; 
+  max-width: 90%; 
+  margin-top: 150px;
 }
