@@ -8,11 +8,10 @@ const ApproveHours = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Fetch submitted hours from backend
     const fetchHours = async () => {
       try {
-        const response = await axios.get("/api/employee-hours"); // Adjust backend URL if needed
-        setSubmittedHours(response.data);
+        const response = await axios.get("/api/employee-hours");
+        setSubmittedHours(response.data.hours || []);
       } catch (err) {
         setError("Failed to load submitted hours.");
       } finally {
@@ -25,13 +24,13 @@ const ApproveHours = () => {
 
   const handleDecision = async (id, decision) => {
     try {
-      await axios.post(`/api/employee-hours/${id}/${decision}`); // e.g., /approve or /reject
+      await axios.put(`/api/employee-hours/${id}/status`, { status: decision });
       setSubmittedHours(prev =>
         prev.map(entry =>
-          entry.id === id ? { ...entry, status: decision } : entry
+          entry._id === id ? { ...entry, status: decision } : entry
         )
       );
-    } catch (err) {
+    } catch {
       alert("Failed to update status. Please try again.");
     }
   };
@@ -48,7 +47,7 @@ const ApproveHours = () => {
 
         <ul style={{ listStyle: "none", padding: 0 }}>
           {submittedHours.map((entry) => (
-            <li key={entry.id} style={{ 
+            <li key={entry._id} style={{ 
               backgroundColor: "rgba(0, 0, 0, 0.7)", 
               padding: "15px", 
               borderRadius: "10px", 
@@ -59,20 +58,20 @@ const ApproveHours = () => {
             }}>
               <p>
                 <strong>Employee:</strong> {entry.employeeName}<br />
-                <strong>Date:</strong> {entry.date}<br />
+                <strong>Date:</strong> {new Date(entry.date).toLocaleDateString()}<br />
                 <strong>Hours:</strong> {entry.hours}<br />
                 <strong>Status:</strong> {entry.status}
               </p>
               {entry.status === "pending" && (
                 <div style={{ marginTop: "10px" }}>
                   <button 
-                    onClick={() => handleDecision(entry.id, "approved")} 
+                    onClick={() => handleDecision(entry._id, "approved")} 
                     style={{ marginRight: "10px", padding: "8px 12px", cursor: "pointer" }}
                   >
                     Approve
                   </button>
                   <button 
-                    onClick={() => handleDecision(entry.id, "rejected")} 
+                    onClick={() => handleDecision(entry._id, "rejected")} 
                     style={{ padding: "8px 12px", cursor: "pointer" }}
                   >
                     Reject
