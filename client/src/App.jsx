@@ -22,11 +22,15 @@ function App() {
       <Route path="/schedule-appointment" element={<ScheduleAppointment />} />
       <Route path="/register" element={<Register />} /> 
       <Route path="/customer-account" element={<CustomerAccount />} />
+      <Route path="/customer-car-status" element={<CustomerAccount />} /> {/*Once we make the car status page for the customer side, replace element here*/}
+      <Route path="/customer-view-appointments" element={<CustomerAccount />} /> {/*Once we make the view appointments page for the customer side, replace element here*/}
+      <Route path="/customer-service-history" element={<CustomerAccount />} /> {/*Once we make the service history page for the customer side, replace element here*/}
+      <Route path="/customer-profile" element={<CustomerAccount />} /> {/*Once we make the profile page for the customer side, replace element here*/}
       <Route path="/employee-account" element={<EmployeeAccount />} />
       <Route path="/admin-account" element={<AdminAccount />} />
       <Route path="/edit-services" element={<EditServices />} />
       <Route path="/admin-service-history" element={<AdminAccount />} /> {/*Once we make the service history page for the admin side, replace element here*/}
-      <Route path="/employee-log" element={<AdminAccount />} /> {/*Once we make the employee log page the admin side, replace element here*/}
+      <Route path="/employee-log" element={<AdminAccount />} /> {/*Once we make the employee log page for the admin side, replace element here*/}
       <Route path="/forgot-password" element={<ForgotPassword />} />
     </Routes>
   );
