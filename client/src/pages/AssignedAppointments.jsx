@@ -78,7 +78,7 @@ const AssignedAppointments = () => {
       <Navigation />
 
       <section className="assigned-appointments">
-        <h1>Pending Services</h1>
+        <h1>Assigned Appointments</h1>
         {message && (
           <p className={`message ${messageType === "success" ? "success" : "error"}`}>
             {message}

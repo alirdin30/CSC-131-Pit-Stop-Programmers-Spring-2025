@@ -100,7 +100,7 @@ const ScheduleAppointment = () => {
             time: appointmentTime // Pass the time
           } 
         });
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error("Error scheduling appointment:", error);
       if (error.response?.status === 401) {

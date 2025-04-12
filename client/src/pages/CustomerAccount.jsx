@@ -1,4 +1,6 @@
 import Navigation from "../components/Navigation";
+import BlueButton from "../components/BlueButton";
+import { useNavigate } from "react-router-dom";
 
 const CustomerAccount = () => {
   return (
@@ -7,6 +9,20 @@ const CustomerAccount = () => {
 
       <section className="customer-account">
         <h1>Customer Account</h1>
+        <div>
+                  <BlueButton
+                    text="?"
+                    onClick={() => navigate("/")}
+                  />
+                  <BlueButton
+                    text="?"
+                    onClick={() => navigate("/")}
+                  />
+                  <BlueButton
+                    text="?"
+                    onClick={() => navigate("/")}
+                  />
+        </div>
       </section>
     </div>
   );
