@@ -35,7 +35,8 @@ a {
 .confirmation-page,
 .employees-page,
 .pending-appointments-page,
-.assigned-appointments-page {
+.assigned-appointments-page,
+.employee-service-history-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -50,9 +51,13 @@ a {
 .register,
 .login,
 .forgot-password,
+.admin-account,
+.edit-services,
 .employee-account,
+.customer-account,
 .pending-appointments,
-.assigned-appointments {
+.assigned-appointments,
+.employee-service-history {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 20px;
@@ -354,34 +359,6 @@ h1 {
 
 .account:hover {
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
-}
-
-/* Admin Account Page Styles */
-
-.admin-account {
-  padding: 20px;
-  margin: 20px auto;
-  width: 75%;
-  border-radius: 10px;
-  line-height: 1.6;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Edit Services Page Styles */
-
-.edit-services {
-  padding: 20px;
-  margin: 20px auto;
-  width: 75%;
-  border-radius: 10px;
-  line-height: 1.6;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 /* Reviews Section */
