@@ -14,7 +14,7 @@ const CustomerAccount = () => {
 
         <BlueButton text="View Car Status" onClick={() => navigate("/customer-car-status")} />
         <BlueButton text="View Appointments" onClick={() => navigate("/customer-view-appointments")} />
-        <BlueButton text="Service History" onClick={() => navigate("/customer-service-history")} />
+        <BlueButton text="Service History" onClick={() => navigate("/customer-history")} />
         <BlueButton text="Manage Profile" onClick={() => navigate("/customer-profile")} />
       </section>
     </div>

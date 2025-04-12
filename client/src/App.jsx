@@ -11,20 +11,20 @@ import ForgotPassword from './pages/ForgotPassword';
 
 //Customer side imports
 import CustomerAccount from './pages/CustomerAccount';
+import CustomerHistory from './pages/CustomerHistory';
 
 //Employee side imports
 import EmployeeAccount from './pages/EmployeeAccount';
 import PendingAppointments from './pages/PendingAppointments';
 import AssignedAppointments from './pages/AssignedAppointments';
-import ApproveHours from './pages/ApproveHours';
-import Revenue from './pages/Revenue';
-import CustomerHistory from './pages/CustomerHistory';
+import EmployeeServiceHistory from './pages/EmployeeServiceHistory';
 
 //Admin side imports
 import AdminAccount from './pages/AdminAccount';
 import EditServices from './pages/EditServices';
+import ApproveHours from './pages/ApproveHours';
 import Employees from './pages/Employees';
-import EmployeeServiceHistory from './pages/EmployeeServiceHistory';
+import Revenue from './pages/Revenue';
 
 function App() {
   return (
@@ -43,7 +43,7 @@ function App() {
       <Route path="/customer-account" element={<CustomerAccount />} />
       <Route path="/customer-car-status" element={<CustomerAccount />} /> {/*Once we make the car status page for the customer side, replace element here*/}
       <Route path="/customer-view-appointments" element={<CustomerAccount />} /> {/*Once we make the view appointments page for the customer side, replace element here*/}
-      <Route path="/customer-service-history" element={<CustomerAccount />} /> {/*Once we make the service history page for the customer side, replace element here*/}
+      <Route path="/customer-history" element={<CustomerHistory />} />
       <Route path="/customer-profile" element={<CustomerAccount />} /> {/*Once we make the profile page for the customer side, replace element here*/}
       
       {/*Employee side pages*/}
@@ -56,11 +56,9 @@ function App() {
       <Route path="/admin-account" element={<AdminAccount />} />
       <Route path="/edit-services" element={<EditServices />} />
       <Route path="/admin-service-history" element={<AdminAccount />} /> {/*Once we make the service history page for the admin side, replace element here*/}
-      <Route path="/employee-log" element={<AdminAccount />} /> {/*Once we make the employee log page for the admin side, replace element here*/}
-      <Route path="/manage-employees" element={<Employees />} />
       <Route path="/ApproveHours" element={<ApproveHours />} />
+      <Route path="/manage-employees" element={<Employees />} />
       <Route path="/revenue" element={<Revenue />} />
-      <Route path="/customer-history" element={<CustomerHistory />} />
     </Routes> 
   );
 }
