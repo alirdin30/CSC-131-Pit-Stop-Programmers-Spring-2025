@@ -37,6 +37,7 @@ function App() {
       <Route path="/assigned-appointments" element={<AssignedAppointments />} />
       <Route path="/ApproveHours" element={<ApproveHours />} />
       <Route path="/revenue" element={<Revenue />} />
+      <Route path="/customer-history" element={<CustomerHistory />} />
     </Routes> 
   );
 }
