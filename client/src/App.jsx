@@ -16,6 +16,9 @@ import CustomerAccount from './pages/CustomerAccount';
 import EmployeeAccount from './pages/EmployeeAccount';
 import PendingAppointments from './pages/PendingAppointments';
 import AssignedAppointments from './pages/AssignedAppointments';
+import ApproveHours from './pages/ApproveHours';
+import Revenue from './pages/Revenue';
+import CustomerHistory from './pages/CustomerHistory';
 
 //Admin side imports
 import AdminAccount from './pages/AdminAccount';
@@ -55,6 +58,9 @@ function App() {
       <Route path="/admin-service-history" element={<AdminAccount />} /> {/*Once we make the service history page for the admin side, replace element here*/}
       <Route path="/employee-log" element={<AdminAccount />} /> {/*Once we make the employee log page for the admin side, replace element here*/}
       <Route path="/manage-employees" element={<Employees />} />
+      <Route path="/ApproveHours" element={<ApproveHours />} />
+      <Route path="/revenue" element={<Revenue />} />
+      <Route path="/customer-history" element={<CustomerHistory />} />
     </Routes> 
   );
 }
