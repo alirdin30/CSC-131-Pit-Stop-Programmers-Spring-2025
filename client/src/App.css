@@ -32,6 +32,10 @@ a {
 .services-page,
 .schedule-page,
 .confirmation-page,
+.employees-page,
+.pending-appointments-page,
+.assigned-appointments-page {
+.confirmation-page,
 .approve-hours {
   min-height: 100vh;
   margin: 0;
@@ -43,14 +47,28 @@ a {
   flex-direction: column;
 }
 
-/* Confirmation Page Styles */
-/* Confirmation Page Styles */
-.confirmation-page {
-  min-height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  text-align: center;
+/*Page Styles */
+.register,
+.login,
+.forgot-password,
+.employee-account,
+.pending-appointments,
+.assigned-appointments {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  margin: 20px auto;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  line-height: 1.6;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+/* Confirmation Page Styles */
 /* Styles for the box */
 .confirmation-page-box {
   display: inline-block;  
@@ -217,8 +235,6 @@ h1 {
 }
 
 .team-member img {
-  width: 300px; 
-  height: 300px; 
   width: 100%; 
   max-width: 300px; 
   height: 300px;
@@ -235,24 +251,6 @@ h1 {
   font-size: 16px;
   line-height: 1.4;
   margin: 0;
-}
-
-/*login Page Styles */
-.register,
-.login,
-.forgot-password {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 20px;
-  margin: 20px auto;
-  width: 50%;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-  line-height: 1.6;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .register:hover,
@@ -299,7 +297,6 @@ h1 {
 /*input box styles */
 .input-box-container {
   width: 100%;
-  margin-bottom: 15px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -404,14 +401,25 @@ h1 {
 }
 
 /* Services Page Styles */
+.services-page {
+  padding-bottom: 50px;
+}
+
+.services-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
 .services-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
 }
 
 .service-item {
@@ -472,35 +480,8 @@ h1 {
   color: #3eb3f7;
 }
 
-.services-page {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.services-page h1 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: white;
-}
-
-.services-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
 /* Schedule Appointment Page Styles */
 .schedule-page {
-  min-height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: url("./assets/PitStopProgrammersImages/background.jpg") center/cover fixed no-repeat;
-  color: white;
-  display: flex;
-  flex-direction: column;
   padding-bottom: 50px;
 }
 
@@ -534,10 +515,7 @@ h1 {
   font-family: 'Times New Roman', Times, serif;
 }
 
-.service-price {
-  font-weight: bold;
-  color: #3eb3f7;
-}
+/* Duplicate service-price removed */
 
 .form-group {
   margin-bottom: 1.5rem;
@@ -628,8 +606,129 @@ h1 {
   background: rgba(0, 0, 0, 0.5);
   color: white;
   font-size: 1rem;
+}
+
+/* Employee Management Styles */
+.employee-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.employee-table-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+.employee-table th {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.employee-table th.actions-column {
+  text-align: center;
+}
+
+.employee-table td {
+  padding: 10px;
+  border-bottom: 1px solid #555;
+}
+
+.employee-table td.actions-cell {
+  text-align: center;
+}
+
+.remove-button {
+  background-color: #f81111;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.remove-button:hover {
+  background-color: #d10000;
+}
+
+/* Confirmation Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  color: #f81111;
+}
+
+.modal-message {
+  margin-bottom: 30px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cancel-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cancel-button:hover {
+  background-color: #444;
+}
+
+.confirm-button {
+  background-color: #f81111;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.confirm-button:hover {
+  background-color: #d10000;
 }
 
 .date-picker:hover, .date-picker:focus {
@@ -710,6 +809,111 @@ h1 {
   .review-container {
     grid-template-columns: repeat(1, 1fr); 
   }
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  color: white;
+}
+
+.appointments-table th {
+  background-color: rgba(51, 51, 51, 0.9);
+  font-weight: bold;
+  text-align: center;
+}
+
+.appointments-table td {
+  text-align: center;
+}
+
+.appointments-table tr:nth-child(even) {
+  background-color: rgba(51, 51, 51, 0.7);
+}
+
+.appointments-table tr:hover {
+  background-color: rgba(51, 51, 51, 0.9);
+}
+
+/* Button Styles */
+.assign-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.assign-button:hover {
+  background-color: #0056b3;
+}
+
+.assign-button:active {
+  background-color: #003f7f;
+}
+
+.complete-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.complete-button:hover {
+  background-color: #218838;
+}
+
+.complete-button:active {
+  background-color: #1e7e34;
+}
+
+/* Message Styles */
+.message {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Success message styling */
+.message.success {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Error message styling */
+.message.error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Loading Text */
+.pending-appointments-page p {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  margin-top: 20px;
 }
 
 .approve-hours-box {
