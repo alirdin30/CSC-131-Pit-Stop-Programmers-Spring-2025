@@ -93,7 +93,7 @@ const ScheduleAppointment = () => {
       
       // Redirect to dashboard or confirmation page after a delay
       setTimeout(() => {
-        navigate("/Confirmation", { 
+        navigate("/confirmation", { 
           state: { 
             service: selectedService.name, 
             date: formattedDate,

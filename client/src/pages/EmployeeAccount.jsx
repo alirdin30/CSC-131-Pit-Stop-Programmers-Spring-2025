@@ -22,7 +22,7 @@ const EmployeeAccount = () => {
           />
           <BlueButton
             text="Services History"
-            onClick={() => navigate("/services-history")}
+            onClick={() => navigate("/employee-service-history")}
           />
         </div>
       </section>

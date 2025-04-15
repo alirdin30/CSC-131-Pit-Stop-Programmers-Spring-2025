@@ -26,7 +26,11 @@ const PendingAppointments = () => {
       // Filter appointments that are not assigned and have a status of "pending"
       const unassignedAppointments = appointments.filter(
         (appointment) => appointment.status === "pending"
-      );
+      ).sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more urgent appointments are at the top
+        const a1 = new Date(`${new Date(appointment1.date).toDateString()} ${appointment1.time}`);
+        const a2 = new Date(`${new Date(appointment2.date).toDateString()} ${appointment2.time}`);
+        return a1 - a2;
+      });
 
       setAppointments(unassignedAppointments);
       setLoading(false);
