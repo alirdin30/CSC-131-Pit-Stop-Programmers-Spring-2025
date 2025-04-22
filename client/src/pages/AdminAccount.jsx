@@ -18,6 +18,7 @@ const AdminAccount = () => {
         <BlueButton text="Approve Hours" onClick={() => navigate("/ApproveHours")} />
         <BlueButton text="Manage Employees" onClick={() => navigate("/manage-employees")} />
         <BlueButton text="Revenue" onClick={() => navigate("/revenue")} />
+        <BlueButton text="Manage Profile" onClick={() => navigate("/admin-profile")} />
       </section>
     </div>
   );
