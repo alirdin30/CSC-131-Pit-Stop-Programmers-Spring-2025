@@ -37,6 +37,7 @@ a {
 .pending-appointments-page,
 .assigned-appointments-page,
 .employee-service-history-page,
+.admin-service-history-page,
 .confirmation-page,
 .approve-hours,
 .revenue-page {
@@ -77,7 +78,8 @@ a {
 .customer-account,
 .pending-appointments,
 .assigned-appointments,
-.employee-service-history {
+.employee-service-history,
+.admin-service-history {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 20px;
