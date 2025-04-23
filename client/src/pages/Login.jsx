@@ -50,12 +50,14 @@ const Login = () => {
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          type="email"
         />
         <InputBox
           label="Password"
           placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          type="password"
         />
         <Link to="/forgot-password" className="forgot-password-link">Forgot Your Password?</Link>
         <BlueButton text="Login" onClick={handleLogin} />

@@ -39,7 +39,9 @@ a {
 .employee-service-history-page,
 .confirmation-page,
 .approve-hours,
-.revenue-page {
+.revenue-page,
+.reset-password-page,
+.customer-history-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -77,7 +79,9 @@ a {
 .customer-account,
 .pending-appointments,
 .assigned-appointments,
-.employee-service-history {
+.employee-service-history,
+.reset-password,
+.history-box {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 20px;
