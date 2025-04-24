@@ -74,9 +74,6 @@ const Navigation = () => {
       <ul>
         <li><Link to="/about" className="hover-underline">About Us</Link></li>
         <li><Link to="/services" className="hover-underline">Services Offered</Link></li>
-        {userRole === 'admin' && (
-          <li><Link to="/employees" className="hover-underline">Employees</Link></li>
-        )}
         <li>{getAccountLink()}</li>
       </ul>
     </nav>

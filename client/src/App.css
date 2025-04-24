@@ -28,6 +28,7 @@ a {
 .customer-account-page,
 .employee-account-page,
 .admin-account-page,
+.edit-services-page,
 .forgot-password-page,
 .services-page,
 .schedule-page,
@@ -35,8 +36,10 @@ a {
 .employees-page,
 .pending-appointments-page,
 .assigned-appointments-page,
+.employee-service-history-page,
 .confirmation-page,
-.approve-hours {
+.approve-hours,
+.revenue-page {
   min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
@@ -47,13 +50,34 @@ a {
   flex-direction: column;
 }
 
+/* Revenue page styles */
+.revenue-summary{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.revenue-item{
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background for contrast */
+  color: white; /* Text color */
+  padding: 20px; /* Padding around the content */
+  margin: 20px auto; /* Center the box with margin */
+  width: 600px; /* Maximum width of the box */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+
 /*Page Styles */
 .register,
 .login,
 .forgot-password,
+.admin-account,
+.edit-services,
 .employee-account,
+.customer-account,
 .pending-appointments,
-.assigned-appointments {
+.assigned-appointments,
+.employee-service-history {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 20px;

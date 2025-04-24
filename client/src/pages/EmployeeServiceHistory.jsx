@@ -4,7 +4,7 @@ import axios from "axios";
 import Navigation from "../components/Navigation";
 import { UserContext } from "../context/UserContext";
 
-const AssignedAppointments = () => {
+const EmployeeServiceHistory = () => {
   const { userRole } = useContext(UserContext);
   const [appointments, setAppointments] = useState([]);
   const [message, setMessage] = useState("");
@@ -12,7 +12,7 @@ const AssignedAppointments = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch appointments assigned to the logged-in employee
+  // Fetch appointments completed by the logged-in employee
   const fetchAppointments = async () => {
     try {
       setLoading(true);
@@ -23,18 +23,18 @@ const AssignedAppointments = () => {
       // Extract appointments and loggedInEmployeeId from the response
       const { appointments, loggedInEmployeeId } = response.data;
 
-      // Filter appointments assigned to the logged-in employee and not completed
-      const assignedAppointments = appointments.filter(
+      // Filter appointments that are assigned to the logged-in employee and are completed
+      const completedAppointments = appointments.filter(
         (appointment) =>
           appointment.assignedEmployee === loggedInEmployeeId &&
-          appointment.status !== "completed"
-      ).sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more urgent appointments are at the top
+          appointment.status == "completed"
+      ).sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more recent appointments are at the top
         const a1 = new Date(`${new Date(appointment1.date).toDateString()} ${appointment1.time}`);
         const a2 = new Date(`${new Date(appointment2.date).toDateString()} ${appointment2.time}`);
-        return a1 - a2;
+        return a2 - a1;
       });
-
-      setAppointments(assignedAppointments);
+      
+      setAppointments(completedAppointments);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching appointments:", error);
@@ -44,32 +44,9 @@ const AssignedAppointments = () => {
     }
   };
 
-  // Mark an appointment as completed
-  const markAsCompleted = async (appointmentId) => {
-    try {
-      await axios.put(`/api/appointments/${appointmentId}`, { status: "completed" }, { withCredentials: true });
-
-      // Update the specific appointment's status in the state
-      setAppointments((prevAppointments) =>
-        prevAppointments.map((appointment) =>
-          appointment._id === appointmentId
-            ? { ...appointment, status: "completed" }
-            : appointment
-        )
-      );
-
-      // Set success message
-      setMessage("Appointment marked as completed.");
-      setMessageType("success");
-    } catch (error) {
-      console.error("Error marking appointment as completed:", error.response?.data || error.message);
-      setMessage("Failed to update appointment status. Please try again.");
-      setMessageType("error");
-    }
-  };
-
   useEffect(() => {
     if (userRole === "employee") {
+      console.log("Fetching appointments for employee...");
       fetchAppointments();
     } else {
       // Redirect to home page if the user is not an employee
@@ -78,11 +55,11 @@ const AssignedAppointments = () => {
   }, [userRole, navigate]);
 
   return (
-    <div className="assigned-appointments-page">
+    <div className="employee-service-history-page">
       <Navigation />
 
-      <section className="assigned-appointments">
-        <h1>Pending Services</h1>
+      <section className="employee-service-history">
+        <h1>Employee Service History</h1>
         {message && (
           <p className={`message ${messageType === "success" ? "success" : "error"}`}>
             {message}
@@ -98,7 +75,6 @@ const AssignedAppointments = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Customer</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -108,28 +84,16 @@ const AssignedAppointments = () => {
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>
                   <td>{appointment.time}</td>
                   <td>{appointment.user.name}</td>
-                  <td>
-                    {appointment.status === "completed" ? (
-                      <span>Completed</span>
-                    ) : (
-                      <button
-                        className="complete-button"
-                        onClick={() => markAsCompleted(appointment._id)}
-                      >
-                        Complete
-                      </button>
-                    )}
-                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
-          <p>No assigned appointments found.</p>
+          <p>No previous appointments found.</p>
         )}
       </section>
     </div>
   );
 };
 
-export default AssignedAppointments;
+export default EmployeeServiceHistory;
