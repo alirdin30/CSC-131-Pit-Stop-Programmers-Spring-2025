@@ -164,7 +164,7 @@ const Employees = () => {
     <div className="employees-page">  {/* Using existing page layout style */}
       <Navigation />
       
-      <div className="account">  {/* Using existing account section style */}
+      <div className="manage-employee">  {/* Using existing account section style */}
         <h1>Manage Employees</h1>
         
         {message && (

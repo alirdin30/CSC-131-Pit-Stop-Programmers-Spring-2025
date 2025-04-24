@@ -73,9 +73,11 @@ router.post('/api/auth/logout', async (req, res) => {
 // @desc    Get login status
 // @access  Private
 router.get('/api/auth/status', (req, res) => {
-  console.log(req.user);
-  console.log(req.session);
-  return req.user ? res.status(200).json({ message: 'User is logged in', user: req.user }) : res.status(401).json({ message: 'User is not logged in' });
+  if (req.user) {
+    const { password, ...userWithoutPassword } = req.user.toObject(); // Exclude the password field
+    return res.status(200).json({ message: 'User is logged in', user: userWithoutPassword });
+  }
+  return res.status(401).json({ message: 'User is not logged in' });
 });
 
 // @route   POST /api/auth/forgot-password

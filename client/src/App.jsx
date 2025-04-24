@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import EditProfile from './pages/EditProfile';
 
 //Customer side imports
 import CustomerAccount from './pages/CustomerAccount';
@@ -40,6 +41,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/edit-profile" element={<EditProfile />} />
       
       {/*Customer side pages*/}
       <Route path="/customer-account" element={<CustomerAccount />} />

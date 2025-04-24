@@ -24,6 +24,10 @@ const EmployeeAccount = () => {
             text="Services History"
             onClick={() => navigate("/employee-service-history")}
           />
+          <BlueButton
+            text="Edit Profile"
+            onClick={() => navigate("/edit-profile")}
+          />
         </div>
       </section>
     </div>

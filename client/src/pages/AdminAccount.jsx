@@ -2,7 +2,6 @@ import Navigation from "../components/Navigation";
 import BlueButton from "../components/BlueButton";
 import { useNavigate } from "react-router-dom";
 
-
 const AdminAccount = () => {
   const navigate = useNavigate();
 
@@ -18,9 +17,10 @@ const AdminAccount = () => {
         <BlueButton text="Approve Hours" onClick={() => navigate("/ApproveHours")} />
         <BlueButton text="Manage Employees" onClick={() => navigate("/manage-employees")} />
         <BlueButton text="Revenue" onClick={() => navigate("/revenue")} />
+        <BlueButton text="Edit Profile" onClick={() => navigate("/edit-profile")} />
       </section>
     </div>
   );
-}
+};
 
 export default AdminAccount;
