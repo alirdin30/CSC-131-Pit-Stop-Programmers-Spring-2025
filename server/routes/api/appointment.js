@@ -52,7 +52,7 @@ router.post(
 // @access  Private
 router.get('/api/appointments', auth, async (req, res) => {
   try {
-    const appointments = await Appointment.find().populate('user', 'name');
+    const appointments = await Appointment.find().populate('user', 'name').populate('assignedEmployee', 'name');
     console.log({ appointments, loggedInEmployeeId: req.user.id });
     res.status(200).json({ appointments, loggedInEmployeeId: req.user.id });
   } catch (error) {
