@@ -4,7 +4,7 @@ import axios from "axios";
 import Navigation from "../components/Navigation";
 import { UserContext } from "../context/UserContext";
 
-const EmployeeServiceHistory = () => {
+const AdminServiceHistory = () => {
   const { userRole } = useContext(UserContext);
   const [appointments, setAppointments] = useState([]);
   const [message, setMessage] = useState("");
@@ -12,7 +12,7 @@ const EmployeeServiceHistory = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch appointments completed by the logged-in employee
+  // Fetch appointments completed by any of the admin's employees
   const fetchAppointments = async () => {
     try {
       setLoading(true);
@@ -20,21 +20,18 @@ const EmployeeServiceHistory = () => {
 
       console.log("API Response:", response.data);
 
-      // Extract appointments and loggedInEmployeeId from the response
-      const { appointments, loggedInEmployeeId } = response.data;
+      // Extract appointments from the response
+      const { appointments } = response.data;
 
-      // Filter appointments that are assigned to the logged-in employee and are completed
-      const completedAppointments = appointments.filter(
-        (appointment) =>
-          appointment.assignedEmployee?._id === loggedInEmployeeId &&
-          appointment.status == "completed"
-      ).sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more recent appointments are at the top
+      // Sort all appointments by most recent
+      // Admin should be able to see all appointments, regardless of their status, so we don't put in a .filter() here
+      const sortedAppointments = appointments.sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more recent appointments are at the top
         const a1 = new Date(`${new Date(appointment1.date).toDateString()} ${appointment1.time}`);
         const a2 = new Date(`${new Date(appointment2.date).toDateString()} ${appointment2.time}`);
         return a2 - a1;
       });
       
-      setAppointments(completedAppointments);
+      setAppointments(sortedAppointments);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching appointments:", error);
@@ -45,21 +42,21 @@ const EmployeeServiceHistory = () => {
   };
 
   useEffect(() => {
-    if (userRole === "employee") {
-      console.log("Fetching appointments for employee...");
+    if (userRole === "admin") {
+      console.log("Fetching appointments for admin...");
       fetchAppointments();
     } else {
-      // Redirect to home page if the user is not an employee
+      // Redirect to home page if the user is not an admin
       navigate("/");
     }
   }, [userRole, navigate]);
 
   return (
-    <div className="employee-service-history-page">
+    <div className="admin-service-history-page">
       <Navigation />
 
-      <section className="employee-service-history">
-        <h1>Employee Service History</h1>
+      <section className="admin-service-history">
+        <h1>Admin Service History</h1>
         {message && (
           <p className={`message ${messageType === "success" ? "success" : "error"}`}>
             {message}
@@ -75,6 +72,8 @@ const EmployeeServiceHistory = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Customer</th>
+                <th>Employee</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -84,6 +83,8 @@ const EmployeeServiceHistory = () => {
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>
                   <td>{appointment.time}</td>
                   <td>{appointment.user.name}</td>
+                  <td>{appointment.assignedEmployee?.name || "Unassigned"}</td>
+                  <td>{appointment.status}</td>
                 </tr>
               ))}
             </tbody>
@@ -96,4 +97,4 @@ const EmployeeServiceHistory = () => {
   );
 };
 
-export default EmployeeServiceHistory;
+export default AdminServiceHistory;

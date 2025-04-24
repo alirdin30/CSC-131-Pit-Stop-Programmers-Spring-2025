@@ -27,6 +27,7 @@ import EditServices from './pages/EditServices';
 import ApproveHours from './pages/ApproveHours';
 import Employees from './pages/Employees';
 import Revenue from './pages/Revenue';
+import AdminServiceHistory from './pages/AdminServiceHistory';
 
 function App() {
   return (
@@ -55,14 +56,16 @@ function App() {
       <Route path="/pending-appointments" element={<PendingAppointments />} />
       <Route path="/assigned-appointments" element={<AssignedAppointments />} />
       <Route path="/employee-service-history" element={<EmployeeServiceHistory/>}/>
+      <Route path="/employee-profile" element={<EmployeeAccount />} /> {/*Once we make the profile page for the employee side, replace element here*/}
 
       {/*Admin side pages*/}
       <Route path="/admin-account" element={<AdminAccount />} />
       <Route path="/edit-services" element={<EditServices />} />
-      <Route path="/admin-service-history" element={<AdminAccount />} /> {/*Once we make the service history page for the admin side, replace element here*/}
+      <Route path="/admin-service-history" element={<AdminServiceHistory />} />
       <Route path="/ApproveHours" element={<ApproveHours />} />
       <Route path="/manage-employees" element={<Employees />} />
       <Route path="/revenue" element={<Revenue />} />
+      <Route path="/admin-profile" element={<AdminAccount />} /> {/*Once we make the profile page for the admin side, replace element here*/}
     </Routes> 
   );
 }
