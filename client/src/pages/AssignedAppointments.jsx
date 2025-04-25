@@ -20,13 +20,13 @@ const AssignedAppointments = () => {
 
       console.log("API Response:", response.data);
 
-      // Extract appointments and loggedInEmployeeId from the response
-      const { appointments, loggedInEmployeeId } = response.data;
+      // Extract appointments and loggedInUserId from the response
+      const { appointments, loggedInUserId } = response.data;
 
       // Filter appointments assigned to the logged-in employee and not completed
       const assignedAppointments = appointments.filter(
         (appointment) =>
-          appointment.assignedEmployee?._id === loggedInEmployeeId &&
+          appointment.assignedEmployee?._id === loggedInUserId &&
           appointment.status !== "completed"
       ).sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more urgent appointments are at the top
         const a1 = new Date(`${new Date(appointment1.date).toDateString()} ${appointment1.time}`);
