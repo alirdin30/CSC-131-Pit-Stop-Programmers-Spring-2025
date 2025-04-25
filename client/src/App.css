@@ -49,7 +49,7 @@ a {
   font-family: Arial, sans-serif;
   text-align: center;
   background: url("./assets/PitStopProgrammersImages/background.jpg") center/cover fixed no-repeat;
-  color: white;
+  color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
 }
@@ -792,7 +792,7 @@ h1 {
 .react-datepicker__current-month, 
 .react-datepicker__day-name, 
 .react-datepicker-time__header {
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .react-datepicker__day {
@@ -808,7 +808,7 @@ h1 {
 .react-datepicker__day--selected, 
 .react-datepicker__day--keyboard-selected {
   background: linear-gradient(to right, #3eb3f7, #f81111);
-  color: white;
+  color: rgb(255, 255, 255);
   border-radius: 50%;
 }
 
@@ -817,7 +817,7 @@ h1 {
 }
 
 .react-datepicker__navigation {
-  top: 10px;
+  top: 10px; 
 }
 
 .react-datepicker__navigation-icon::before {
@@ -826,6 +826,11 @@ h1 {
 
 .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
   border-color: #3eb3f7;
+}
+
+.date-picker {
+  color: black;
+  background-color: #f1f1f1;
 }
 
 /* Responsive adjustments */
