@@ -10,11 +10,12 @@ const Status = () => {
       const response = await axios.get('/api/appointments', { withCredentials: true });
       console.log('Appointments:', response.data);
 
-      const { appointments, loggedInEmployeeId } = response.data;
+      const { appointments, loggedInUserId } = response.data;
 
-      // Filter appointments for the logged-in user
+      // Filter appointments for the logged-in user and exclude "pending" statuses
       const customerAppointments = appointments.filter(
-        (appointment) => appointment.user._id === loggedInEmployeeId
+        (appointment) =>
+          appointment.user._id === loggedInUserId && appointment.status !== "pending"
       );
 
       // Sort appointments by date (most recent first) and get the latest one
