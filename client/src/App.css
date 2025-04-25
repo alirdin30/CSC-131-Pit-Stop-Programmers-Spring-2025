@@ -804,7 +804,7 @@ h1 {
 }
 
 .react-datepicker__navigation {
-  top: 10px;
+  top: 10px; 
 }
 
 .react-datepicker__navigation-icon::before {
