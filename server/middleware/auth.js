@@ -22,7 +22,7 @@ const auth = async (req, res, next) => {
 
     try {
       // Verify token
-      const decoded = jwt.verify(token, 'pitstop'); // Use the same secret as in session config
+      const decoded = jwt.verify(token, 'pitstopprogrammers'); 
       
       // Find user by id
       const user = await User.findById(decoded.id).select('-password');
