@@ -29,7 +29,7 @@ const Services = () => {
   // Handle service selection and navigate to appointment scheduling
   const handleServiceSelect = (serviceId) => {
     setSelectedService(serviceId);
-    const selectedServiceObj = services.find(service => service.id === serviceId);
+    const selectedServiceObj = services.find(service => service._id === serviceId);
     navigate("/schedule-appointment", { state: { service: selectedServiceObj } });
   };
 
