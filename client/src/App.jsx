@@ -12,6 +12,7 @@ import ForgotPassword from './pages/ForgotPassword';
 //Customer side imports
 import CustomerAccount from './pages/CustomerAccount';
 import CustomerHistory from './pages/CustomerHistory';
+import Status from './pages/Status'
 
 //Employee side imports
 import EmployeeAccount from './pages/EmployeeAccount';
@@ -42,7 +43,7 @@ function App() {
       
       {/*Customer side pages*/}
       <Route path="/customer-account" element={<CustomerAccount />} />
-      <Route path="/customer-car-status" element={<CustomerAccount />} /> {/*Once we make the car status page for the customer side, replace element here*/}
+      <Route path="/customer-car-status" element={<Status />} /> {/*Once we make the car status page for the customer side, replace element here*/}
       <Route path="/customer-view-appointments" element={<CustomerAccount />} /> {/*Once we make the view appointments page for the customer side, replace element here*/}
       <Route path="/customer-history" element={<CustomerHistory />} />
       <Route path="/customer-profile" element={<CustomerAccount />} /> {/*Once we make the profile page for the customer side, replace element here*/}
