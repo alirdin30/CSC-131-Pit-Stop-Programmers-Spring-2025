@@ -3,19 +3,19 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const Revenue = () => {
-  const [serviceCounts, setServiceCounts] = useState([]);
+  const [serviceRevenue, setServiceRevenue] = useState([]);
 
-  const fetchServiceCounts = async () => {
+  const fetchServiceRevenue = async () => {
     try {
-      const response = await axios.get("/api/appointments/service-count", { withCredentials: true });
-      setServiceCounts(response.data);
+      const response = await axios.get("/api/appointments/service-revenue", { withCredentials: true });
+      setServiceRevenue(response.data);
     } catch (error) {
-      console.error("Error fetching service counts:", error.message);
+      console.error("Error fetching service revenue:", error.message);
     }
   };
 
   useEffect(() => {
-    fetchServiceCounts();
+    fetchServiceRevenue();
   }, []);
 
   return (
@@ -24,15 +24,17 @@ const Revenue = () => {
       <h1>Total Revenue</h1>
 
       <section className="revenue-summary">
-        {serviceCounts.length > 0 ? (
-          serviceCounts.map((service, index) => (
+        {serviceRevenue.length > 0 ? (
+          serviceRevenue.map((service, index) => (
             <div key={index} className="revenue-item">
               <h3>{service._id}</h3>
               <p>Amount Sold: {service.count}</p>
+              <p>Price: ${service.price.toFixed(2)}</p>
+              <p>Total Revenue: ${service.revenue.toFixed(2)}</p>
             </div>
           ))
         ) : (
-          <p>No sales data available.</p>
+          <p>No revenue data available.</p>
         )}
       </section>
     </div>

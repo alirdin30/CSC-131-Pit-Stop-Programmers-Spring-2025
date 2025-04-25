@@ -111,23 +111,42 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 
-// @route   GET /api/appointments/service-count
-// @desc    Get the count of each service type
+// @route   GET /api/appointments/service-revenue
+// @desc    Get the total revenue for each service
 // @access  Private
-router.get('/api/appointments/service-count', auth, async (req, res) => {
+router.get('/api/appointments/service-revenue', auth, async (req, res) => {
   try {
-    const serviceCounts = await Appointment.aggregate([
+    const serviceRevenue = await Appointment.aggregate([
       {
         $group: {
           _id: "$service", // Group by the "service" field
           count: { $sum: 1 }, // Count the number of occurrences
         },
       },
+      {
+        $lookup: {
+          from: "services", // Join with the "services" collection
+          localField: "_id", // Match the "_id" (service name) in appointments
+          foreignField: "name", // Match the "name" in services
+          as: "serviceDetails",
+        },
+      },
+      {
+        $unwind: "$serviceDetails", // Unwind the service details array
+      },
+      {
+        $project: {
+          _id: 1, // Service name
+          count: 1, // Number of times the service was sold
+          price: "$serviceDetails.price", // Price of the service
+          revenue: { $multiply: ["$count", "$serviceDetails.price"] }, // Calculate revenue
+        },
+      },
     ]);
 
-    res.status(200).json(serviceCounts);
+    res.status(200).json(serviceRevenue);
   } catch (error) {
-    console.error("Error fetching service counts:", error.message);
+    console.error("Error fetching service revenue:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 });
