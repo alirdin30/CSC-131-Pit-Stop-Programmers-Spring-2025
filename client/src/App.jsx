@@ -8,10 +8,13 @@ import './App.css';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+import EditProfile from './pages/EditProfile';
 
 //Customer side imports
 import CustomerAccount from './pages/CustomerAccount';
 import CustomerHistory from './pages/CustomerHistory';
+import CustomerViewAppointments from './pages/CustomerViewAppointments';
 import Status from './pages/Status'
 
 //Employee side imports
@@ -31,7 +34,7 @@ import AdminServiceHistory from './pages/AdminServiceHistory';
 function App() {
   return (
     <Routes>
-      {/*Home and login/register pages*/}
+      {/*Home, login/register, and other universal pages*/}
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutUs />} />
       <Route path="/services" element={<Services />} />
@@ -40,20 +43,20 @@ function App() {
       <Route path="/register" element={<Register />} /> 
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/edit-profile" element={<EditProfile />} />
       
       {/*Customer side pages*/}
       <Route path="/customer-account" element={<CustomerAccount />} />
       <Route path="/customer-car-status" element={<Status />} /> {/*Once we make the car status page for the customer side, replace element here*/}
-      <Route path="/customer-view-appointments" element={<CustomerAccount />} /> {/*Once we make the view appointments page for the customer side, replace element here*/}
+      <Route path="/customer-view-appointments" element={<CustomerViewAppointments />} />
       <Route path="/customer-history" element={<CustomerHistory />} />
-      <Route path="/customer-profile" element={<CustomerAccount />} /> {/*Once we make the profile page for the customer side, replace element here*/}
       
       {/*Employee side pages*/}
       <Route path="/employee-account" element={<EmployeeAccount />} />
       <Route path="/pending-appointments" element={<PendingAppointments />} />
       <Route path="/assigned-appointments" element={<AssignedAppointments />} />
       <Route path="/employee-service-history" element={<EmployeeServiceHistory/>}/>
-      <Route path="/employee-profile" element={<EmployeeAccount />} /> {/*Once we make the profile page for the employee side, replace element here*/}
 
       {/*Admin side pages*/}
       <Route path="/admin-account" element={<AdminAccount />} />
@@ -62,7 +65,6 @@ function App() {
       <Route path="/ApproveHours" element={<ApproveHours />} />
       <Route path="/manage-employees" element={<Employees />} />
       <Route path="/revenue" element={<Revenue />} />
-      <Route path="/admin-profile" element={<AdminAccount />} /> {/*Once we make the profile page for the admin side, replace element here*/}
     </Routes> 
   );
 }

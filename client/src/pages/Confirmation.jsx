@@ -25,11 +25,13 @@ const Confirmation = () => {
         
       <div className="confirmation-page-box">
         <h1>Appointment Confirmation</h1>
-        <p>
+        <p className="confirmation-message">
           Hello, your appointment for {service} is set for {date} at {time}.
         </p>
 
-        <p>Thank you for choosing Pit Stop Programmers! We look forward to serving you.</p>
+        <p className="confirmation-message">
+          Thank you for choosing Pit Stop Programmers! We look forward to serving you.
+        </p>
       </div>
     </div>
   );
