@@ -108,6 +108,28 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
     console.error("Error updating appointment status:", error.message);
     res.status(500).json({ message: "Server error" });
   }
+
+// @route   GET /api/appointments/service-count
+// @desc    Get the count of each service type
+// @access  Private
+router.get('/api/appointments/service-count', auth, async (req, res) => {
+  try {
+    const serviceCounts = await Appointment.aggregate([
+      {
+        $group: {
+          _id: "$service", // Group by the "service" field
+          count: { $sum: 1 }, // Count the number of occurrences
+        },
+      },
+    ]);
+
+    res.status(200).json(serviceCounts);
+  } catch (error) {
+    console.error("Error fetching service counts:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 });
 
 export default router;
