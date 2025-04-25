@@ -15,23 +15,27 @@ router.post(
     body('service', 'Service is required').notEmpty(),
     body('date', 'Date is required').isISO8601().toDate(),
     body('time', 'Time is required').notEmpty(),
+    body('carYear', 'Car year is required').notEmpty(),
+    body('carMake', 'Car make is required').notEmpty(),
+    body('carModel', 'Car model is required').notEmpty()
   ],
   async (req, res) => {
     try {
-      // Check for validation errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { service, date, time } = req.body;
+      const { service, date, time, carYear, carMake, carModel } = req.body;
 
-      // Create new appointment
       const appointment = new Appointment({
         service,
         date,
         time,
-        user: req.user.id 
+        carYear,
+        carMake,
+        carModel,
+        user: req.user.id
       });
 
       await appointment.save();
@@ -72,7 +76,7 @@ router.put('/api/appointments/:id/assign', auth, async (req, res) => {
     }
 
     appointment.assignedEmployee = req.user.id;
-    appointment.status = "assigned"; // Update status to "assigned"
+    appointment.status = "assigned";
     await appointment.save();
 
     res.status(200).json({ message: "Appointment assigned successfully", appointment });
@@ -89,7 +93,6 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
   try {
     const { status } = req.body;
 
-    // Validate the status
     if (!["pending", "assigned", "completed", "cancelled"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
@@ -99,7 +102,6 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
       return res.status(404).json({ message: "Appointment not found" });
     }
 
-    // Update the status
     appointment.status = status;
     await appointment.save();
 

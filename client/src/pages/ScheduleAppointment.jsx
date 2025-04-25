@@ -10,28 +10,27 @@ const ScheduleAppointment = () => {
   const location = useLocation();
   const [appointmentDate, setAppointmentDate] = useState(null);
   const [appointmentTime, setAppointmentTime] = useState("");
+  const [carYear, setCarYear] = useState("");
+  const [carMake, setCarMake] = useState("");
+  const [carModel, setCarModel] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 
-  // Available time slots
   const timeSlots = [
-    "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
+    "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
     "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"
   ];
 
-  // Get the selected service from location state
   useEffect(() => {
     if (location.state && location.state.service) {
       setSelectedService(location.state.service);
     } else {
-      // If no service was selected, redirect back to services page
       navigate("/services");
     }
   }, [location, navigate]);
 
-  // Check if user is logged in
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
@@ -41,19 +40,14 @@ const ScheduleAppointment = () => {
         setIsLoggedIn(false);
       }
     };
-
     checkLoginStatus();
   }, []);
 
-  // Handle appointment submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Reset messages
     setMessage("");
     setError("");
 
-    // Validate form
     if (!appointmentDate) {
       setError("Please select a date");
       return;
@@ -64,7 +58,11 @@ const ScheduleAppointment = () => {
       return;
     }
 
-    // Check if user is logged in
+    if (!carYear || !carMake || !carModel) {
+      setError("Please provide year, make, and model of the car");
+      return;
+    }
+
     if (!isLoggedIn) {
       setError("Please log in to schedule an appointment");
       setTimeout(() => {
@@ -74,31 +72,30 @@ const ScheduleAppointment = () => {
     }
 
     try {
-      // Format date for API
       const formattedDate = appointmentDate.toISOString().split('T')[0];
-      
-      // Submit appointment with credentials
       const response = await axios.post("/api/appointments", {
         service: selectedService.name,
         date: formattedDate,
-        time: appointmentTime
+        time: appointmentTime,
+        carYear,
+        carMake,
+        carModel
       }, { withCredentials: true });
 
-      // Show success message
       setMessage("Appointment scheduled successfully!");
-      
-      // Reset form
       setAppointmentDate(null);
       setAppointmentTime("");
-      
-      // Redirect to dashboard or confirmation page after a delay
+      setCarYear("");
+      setCarMake("");
+      setCarModel("");
+
       setTimeout(() => {
-        navigate("/confirmation", { 
-          state: { 
-            service: selectedService.name, 
+        navigate("/Confirmation", {
+          state: {
+            service: selectedService.name,
             date: formattedDate,
-            time: appointmentTime // Pass the time
-          } 
+            time: appointmentTime
+          }
         });
       }, 2000);
     } catch (error) {
@@ -114,10 +111,7 @@ const ScheduleAppointment = () => {
     }
   };
 
-  // Calculate minimum date (today)
   const today = new Date();
-
-  // Filter out weekends (Saturday and Sunday)
   const isWeekday = (date) => {
     const day = date.getDay();
     return day !== 0 && day !== 6;
@@ -133,16 +127,16 @@ const ScheduleAppointment = () => {
 
       <div className="schedule-container">
         <h1>Schedule an Appointment</h1>
-        
+
         <div className="selected-service-details">
           <h2>{selectedService.name}</h2>
           <p className="service-description">{selectedService.description}</p>
           <p className="service-price">Price: {selectedService.price}</p>
         </div>
-        
+
         {message && <div className="success-message">{message}</div>}
         {error && <div className="error-message">{error}</div>}
-        
+
         <form onSubmit={handleSubmit} className="appointment-form">
           <div className="form-group">
             <label htmlFor="appointment-date">Appointment Date:</label>
@@ -159,10 +153,10 @@ const ScheduleAppointment = () => {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="appointment-time">Appointment Time:</label>
-            <select 
+            <select
               id="appointment-time"
               value={appointmentTime}
               onChange={(e) => setAppointmentTime(e.target.value)}
@@ -174,7 +168,43 @@ const ScheduleAppointment = () => {
               ))}
             </select>
           </div>
-          
+
+          <div className="form-group">
+            <label htmlFor="car-year">Car Year:</label>
+            <input
+              type="text"
+              id="car-year"
+              value={carYear}
+              onChange={(e) => setCarYear(e.target.value)}
+              placeholder="e.g. 2018"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="car-make">Car Make:</label>
+            <input
+              type="text"
+              id="car-make"
+              value={carMake}
+              onChange={(e) => setCarMake(e.target.value)}
+              placeholder="e.g. Toyota"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="car-model">Car Model:</label>
+            <input
+              type="text"
+              id="car-model"
+              value={carModel}
+              onChange={(e) => setCarModel(e.target.value)}
+              placeholder="e.g. Camry"
+              required
+            />
+          </div>
+
           <div className="form-actions">
             <button type="button" className="cancel-button" onClick={() => navigate("/services")}>
               Cancel
