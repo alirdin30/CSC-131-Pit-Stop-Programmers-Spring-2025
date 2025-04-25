@@ -7,14 +7,12 @@ const Confirmation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Ensure location.state exists before accessing its properties
   useEffect(() => {
     if (!location.state || !location.state.service || !location.state.date || !location.state.time) {
-      navigate("/schedule-appointment"); // Redirect if state is missing
+      navigate("/schedule-appointment"); 
     }
   }, [location, navigate]);
 
-  // Extract appointment details, default to empty string to prevent "undefined"
   const service = location.state?.service || "";
   const date = location.state?.date || "";
   const time = location.state?.time || "";

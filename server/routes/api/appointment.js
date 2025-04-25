@@ -1,7 +1,9 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import Appointment from '../../model/appointment.js';
+import User from '../../model/user.js'; // Add this import to get user email
 import auth from '../../middleware/auth.js';
+import { sendAppointmentConfirmationEmail } from '../../utils/email.js'; // Import the email function
 
 const router = express.Router();
 
@@ -39,6 +41,23 @@ router.post(
       });
 
       await appointment.save();
+
+      const user = await User.findById(req.user.id);
+      if (user && user.email) {
+        const formattedDate = new Date(date).toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        await sendAppointmentConfirmationEmail(
+          user.email,
+          service,
+          formattedDate,
+          time
+        );
+      }
 
       res.status(201).json({ 
         message: 'Appointment scheduled successfully', 
