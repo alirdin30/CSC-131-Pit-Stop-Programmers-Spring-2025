@@ -43,9 +43,10 @@ const Status = () => {
   return (
     <div className="status-page">
       <Navigation />
-      <h1>Car Status</h1>
 
       <section className="status-section">
+        <h1>Car Status</h1>
+
         {latestStatus ? (
           <p>Status: {latestStatus}</p>
         ) : (

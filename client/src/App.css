@@ -43,6 +43,7 @@ a {
 .revenue-page,
 .reset-password-page,
 .customer-history-page,
+.status-page,
 .edit-profile-page {
   min-height: 100vh;
   margin: 0;
@@ -86,6 +87,7 @@ a {
 .reset-password,
 .customer-history,
 .edit-profile,
+.status-section,
 .manage-employee {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
