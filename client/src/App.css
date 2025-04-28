@@ -71,6 +71,102 @@ a {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
 }
 
+/* EditServices Page Styles */
+.edit-error-message {
+  color: red;
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
+.edit-services-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.edit-service-item {
+  margin-bottom: 1em;
+  background: rgba(0,0,0,0.7);
+  border-radius: 8px;
+  padding: 1em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.edit-input {
+  margin-right: 0.5em;
+  padding: 0.3em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.edit-input-price {
+  width: 90px;
+}
+.edit-input-description {
+  width: 220px;
+}
+
+.edit-service-edit-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5em;
+}
+
+.edit-btn {
+  border: none;
+  border-radius: 4px;
+  padding: 0.4em 1em;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  margin-bottom: 0.5em;
+}
+.save-btn {
+  background: #3eb3f7;
+}
+.cancel-btn {
+  background: #aaa;
+  margin-bottom: 0;
+}
+.edit-service-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5em;
+  gap: 0.5em;
+}
+.edit-btn-edit {
+  background: #3eb3f7;
+}
+.delete-btn {
+  background: #e74c3c;
+}
+.add-btn {
+  background: #3eb3f7;
+}
+.service-name {
+  font-size: 1.1em;
+}
+.service-price-edit {
+  color: #3eb3f7;
+  font-weight: bold;
+}
+.edit-service-form {
+  margin-top: 2em;
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+  padding: 1em;
+  max-width: 600px;
+  margin: 2em auto 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.edit-service-form-title {
+  margin-bottom: 0.5em;
+}
+
 /*Page Styles */
 .register,
 .login,

@@ -1,5 +1,4 @@
 import Navigation from "../components/Navigation";
-import BlueButton from "../components/BlueButton";
 import { useState, useEffect } from "react";
 
 const EditServices = () => {
@@ -92,58 +91,58 @@ const EditServices = () => {
       <Navigation />
       <section className="edit-services">
         <h1>Edit Services</h1>
-        {loading ? <p>Loading...</p> : error ? <p style={{color:'red'}}>{error}</p> : (
+        {loading ? <p>Loading...</p> : error ? <p className="edit-error-message">{error}</p> : (
           <>
-            <ul style={{listStyle:'none', padding:0, width:'100%', maxWidth:'600px', margin:'0 auto'}}>
+            <ul className="edit-services-list">
               {services.map(service => (
-                <li key={service._id} style={{marginBottom:'1em', background:'rgba(0,0,0,0.7)', borderRadius:'8px', padding:'1em', boxShadow:'0 2px 8px rgba(0,0,0,0.2)'}}>
+                <li key={service._id} className="edit-service-item">
                   {editId === service._id ? (
   <>
     <input
       type="text"
       value={editService.name}
       onChange={e => setEditService({...editService, name: e.target.value})}
-      style={{marginRight:'0.5em', padding:'0.3em', borderRadius:'4px', border:'1px solid #ccc'}}
+      className="edit-input edit-input-name"
       required
     />
     <input
       type="text"
       value={editService.price}
       onChange={e => setEditService({...editService, price: e.target.value})}
-      style={{marginRight:'0.5em', padding:'0.3em', borderRadius:'4px', border:'1px solid #ccc', width:'90px'}}
+      className="edit-input edit-input-price"
       required
     />
     <input
       type="text"
       value={editService.description}
       onChange={e => setEditService({...editService, description: e.target.value})}
-      style={{marginRight:'0.5em', padding:'0.3em', borderRadius:'4px', border:'1px solid #ccc', width:'220px'}}
+      className="edit-input edit-input-description"
       required
     />
-    <div style={{display:'flex', flexDirection:'column', alignItems:'center', marginTop:'0.5em'}}>
-      <button onClick={() => handleSaveEdit(service._id)} style={{background:'#3eb3f7', color:'white', border:'none', borderRadius:'4px', padding:'0.4em 1em', fontWeight:'bold', cursor:'pointer', marginBottom:'0.5em'}}>Save</button>
-      <button onClick={handleCancelEdit} style={{background:'#aaa', color:'white', border:'none', borderRadius:'4px', padding:'0.4em 1em', fontWeight:'bold', cursor:'pointer'}}>Cancel</button>
+    <div className="edit-service-edit-actions">
+      <button onClick={() => handleSaveEdit(service._id)} className="edit-btn save-btn">Save</button>
+      <button onClick={handleCancelEdit} className="edit-btn cancel-btn">Cancel</button>
     </div>
   </>
 ) : (
   <>
-    <strong style={{fontSize:'1.1em'}}>{service.name}</strong> - <span style={{color:'#3eb3f7', fontWeight:'bold'}}>{service.price}</span><br/>
+    <strong className="service-name">{service.name}</strong> - <span className="service-price-edit">{service.price}</span><br/>
     <span>{service.description}</span>
-    <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center', marginTop:'0.5em', gap:'0.5em'}}>
-      <button style={{background:'#3eb3f7', color:'white', border:'none', borderRadius:'4px', padding:'0.4em 1em', fontWeight:'bold', cursor:'pointer'}} onClick={() => handleEditClick(service)}>Edit</button>
-      <button style={{background:'#e74c3c', color:'white', border:'none', borderRadius:'4px', padding:'0.4em 1em', fontWeight:'bold', cursor:'pointer'}} onClick={() => handleDeleteService(service._id)}>Delete</button>
+    <div className="edit-service-actions">
+      <button className="edit-btn edit-btn-edit" onClick={() => handleEditClick(service)}>Edit</button>
+      <button className="edit-btn delete-btn" onClick={() => handleDeleteService(service._id)}>Delete</button>
     </div>
   </>
 )}
                 </li>
               ))}
             </ul>
-            <form onSubmit={handleAddService} style={{marginTop:'2em', background:'rgba(0,0,0,0.6)', borderRadius:'8px', padding:'1em', maxWidth:'600px', margin:'2em auto 0 auto', boxShadow:'0 2px 8px rgba(0,0,0,0.15)'}}>
-              <h3 style={{marginBottom:'0.5em'}}>Add New Service</h3>
-              <input type="text" placeholder="Name" value={newService.name} onChange={e => setNewService({...newService, name: e.target.value})} required style={{marginRight:'0.5em', padding:'0.3em', borderRadius:'4px', border:'1px solid #ccc'}} />
-              <input type="text" placeholder="Price" value={newService.price} onChange={e => setNewService({...newService, price: e.target.value})} required style={{marginRight:'0.5em', padding:'0.3em', borderRadius:'4px', border:'1px solid #ccc', width:'90px'}} />
-              <input type="text" placeholder="Description" value={newService.description} onChange={e => setNewService({...newService, description: e.target.value})} required style={{marginRight:'0.5em', padding:'0.3em', borderRadius:'4px', border:'1px solid #ccc', width:'220px'}} />
-              <button type="submit" style={{background:'#3eb3f7', color:'white', border:'none', borderRadius:'4px', padding:'0.4em 1em', fontWeight:'bold', cursor:'pointer'}}>Add Service</button>
+            <form onSubmit={handleAddService} className="edit-service-form">
+              <h3 className="edit-service-form-title">Add New Service</h3>
+              <input type="text" placeholder="Name" value={newService.name} onChange={e => setNewService({...newService, name: e.target.value})} required className="edit-input edit-input-name" />
+              <input type="text" placeholder="Price" value={newService.price} onChange={e => setNewService({...newService, price: e.target.value})} required className="edit-input edit-input-price" />
+              <input type="text" placeholder="Description" value={newService.description} onChange={e => setNewService({...newService, description: e.target.value})} required className="edit-input edit-input-description" />
+              <button type="submit" className="edit-btn add-btn">Add Service</button>
             </form>
           </>
         )}
