@@ -55,9 +55,10 @@ a {
   flex-direction: column;
 }
 
+/* CSS for the images on the status page */
 .status-image {
-  width: 150px;
-  height: auto;
+  width: 1200px;
+  height: 500px;
   margin-top: 10px;
 }
 
