@@ -1,14 +1,20 @@
 import Navigation from "../components/Navigation";
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const Status = () => {
   const [latestStatus, setLatestStatus] = useState(null);
 
+  // Map statuses to image URLs
+  const statusImages = {
+    completed: "../assets/progressbar/progresscomplete.png",
+    default: "../assets/progressbar/progressdefault.png", // Fallback image
+  };
+
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get('/api/appointments', { withCredentials: true });
-      console.log('Appointments:', response.data);
+      const response = await axios.get("/api/appointments", { withCredentials: true });
+      console.log("Appointments:", response.data);
 
       const { appointments, loggedInUserId } = response.data;
 
@@ -32,7 +38,7 @@ const Status = () => {
         setLatestStatus(null);
       }
     } catch (error) {
-      console.error('Error fetching appointments:', error.message);
+      console.error("Error fetching appointments:", error.message);
     }
   };
 
@@ -43,12 +49,18 @@ const Status = () => {
   return (
     <div className="status-page">
       <Navigation />
+      <h1>Car Status</h1>
 
       <section className="status-section">
-        <h1>Car Status</h1>
-
         {latestStatus ? (
-          <p>Status: {latestStatus}</p>
+          <>
+            <p>Status: {latestStatus}</p>
+            <img
+              src={statusImages[latestStatus] || statusImages.default}
+              alt={latestStatus}
+              className="status-image"
+            />
+          </>
         ) : (
           <p>No active appointments available.</p>
         )}
