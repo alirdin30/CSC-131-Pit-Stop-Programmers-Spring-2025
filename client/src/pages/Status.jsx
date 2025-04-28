@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 // Import images directly
 import progressComplete from "../assets/progressbar/progresscomplete.png";
 import progressDefault from "../assets/progressbar/progressdefault.png";
+import progressHalf from "../assets/progressbar/progresshalf.png";
+import progressQuarter from "../assets/progressbar/progressquarter.png";
+import progressThreeQuarters from "../assets/progressbar/progress3quarter.png";
 
 const Status = () => {
   const [latestStatus, setLatestStatus] = useState(null);
