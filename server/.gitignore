@@ -1,0 +1,3 @@
+# .gitignore for server directory
+.env
+!.env.example

@@ -31,7 +31,7 @@ const services = [
 
 async function seed() {
   try {
-    await mongoose.connect('mongodb://localhost:27017/pitstop_db');
+    await mongoose.connect(process.env.MONGODB_URI);
     await Service.deleteMany({});
     await Service.insertMany(services);
     console.log('Seeded services successfully.');
