@@ -2,13 +2,18 @@ import Navigation from "../components/Navigation";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+// Import images directly
+import progressComplete from "../assets/progressbar/progresscomplete.png";
+import progressDefault from "../assets/progressbar/progressdefault.png";
+
 const Status = () => {
   const [latestStatus, setLatestStatus] = useState(null);
 
-  // Map statuses to image URLs
+  // Map statuses to imported image URLs
+  // Remeber to add more images when more statuses are added
   const statusImages = {
-    completed: "../assets/progressbar/progresscomplete.png",
-    default: "../assets/progressbar/progressdefault.png", // Fallback image
+    Completed: progressComplete,
+    default: progressDefault, // Fallback image
   };
 
   const fetchAppointments = async () => {
