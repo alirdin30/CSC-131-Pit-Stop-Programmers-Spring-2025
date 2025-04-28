@@ -55,6 +55,12 @@ a {
   flex-direction: column;
 }
 
+.status-image {
+  width: 150px;
+  height: auto;
+  margin-top: 10px;
+}
+
 /* Revenue page styles */
 .revenue-summary{
   display: flex;
