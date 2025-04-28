@@ -15,23 +15,27 @@ router.post(
     body('service', 'Service is required').notEmpty(),
     body('date', 'Date is required').isISO8601().toDate(),
     body('time', 'Time is required').notEmpty(),
+    body('carYear', 'Car year is required').notEmpty(),
+    body('carMake', 'Car make is required').notEmpty(),
+    body('carModel', 'Car model is required').notEmpty()
   ],
   async (req, res) => {
     try {
-      // Check for validation errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { service, date, time } = req.body;
+      const { service, date, time, carYear, carMake, carModel } = req.body;
 
-      // Create new appointment
       const appointment = new Appointment({
         service,
         date,
         time,
-        user: req.user.id 
+        carYear,
+        carMake,
+        carModel,
+        user: req.user.id
       });
 
       await appointment.save();
@@ -53,8 +57,8 @@ router.post(
 router.get('/api/appointments', auth, async (req, res) => {
   try {
     const appointments = await Appointment.find().populate('user', 'name').populate('assignedEmployee', 'name');
-    console.log({ appointments, loggedInEmployeeId: req.user.id });
-    res.status(200).json({ appointments, loggedInEmployeeId: req.user.id });
+    console.log({ appointments, loggedInUserId: req.user.id });
+    res.status(200).json({ appointments, loggedInUserId: req.user.id });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: 'Server error' });
@@ -72,7 +76,7 @@ router.put('/api/appointments/:id/assign', auth, async (req, res) => {
     }
 
     appointment.assignedEmployee = req.user.id;
-    appointment.status = "assigned"; // Update status to "assigned"
+    appointment.status = "assigned";
     await appointment.save();
 
     res.status(200).json({ message: "Appointment assigned successfully", appointment });
@@ -89,7 +93,6 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
   try {
     const { status } = req.body;
 
-    // Validate the status
     if (!["pending", "assigned", "completed", "cancelled"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
@@ -99,7 +102,6 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
       return res.status(404).json({ message: "Appointment not found" });
     }
 
-    // Update the status
     appointment.status = status;
     await appointment.save();
 
@@ -108,6 +110,47 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
     console.error("Error updating appointment status:", error.message);
     res.status(500).json({ message: "Server error" });
   }
+
+// @route   GET /api/appointments/service-revenue
+// @desc    Get the total revenue for each service
+// @access  Private
+router.get('/api/appointments/service-revenue', auth, async (req, res) => {
+  try {
+    const serviceRevenue = await Appointment.aggregate([
+      {
+        $group: {
+          _id: "$service", // Group by the "service" field
+          count: { $sum: 1 }, // Count the number of occurrences
+        },
+      },
+      {
+        $lookup: {
+          from: "services", // Join with the "services" collection
+          localField: "_id", // Match the "_id" (service name) in appointments
+          foreignField: "name", // Match the "name" in services
+          as: "serviceDetails",
+        },
+      },
+      {
+        $unwind: "$serviceDetails", // Unwind the service details array
+      },
+      {
+        $project: {
+          _id: 1, // Service name
+          count: 1, // Number of times the service was sold
+          price: "$serviceDetails.price", // Price of the service
+          revenue: { $multiply: ["$count", "$serviceDetails.price"] }, // Calculate revenue
+        },
+      },
+    ]);
+
+    res.status(200).json(serviceRevenue);
+  } catch (error) {
+    console.error("Error fetching service revenue:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 });
 
 export default router;
