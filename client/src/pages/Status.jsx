@@ -10,14 +10,28 @@ import progressQuarter from "../assets/progressbar/progressquarter.png";
 import progressThreeQuarters from "../assets/progressbar/progress3quarter.png";
 
 const Status = () => {
-  const [latestStatus, setLatestStatus] = useState(null);
+  const [latestAppointment, setLatestAppointment] = useState(null);
+
 
   // Map statuses to imported image URLs
   // Remeber to add more images when more statuses are added
   const statusImages = {
     Completed: progressComplete,
+    Assigned: progressQuarter,
     default: progressDefault, // Fallback image
   };
+
+  // I based the statuses on what statuses are in the 
+  // appointment model which are "completed" and "assigned"
+  // pending statuses should not be shown
+
+  // Messages for each status
+  const statusMessages = {
+    Completed: "The work on your car is done. you can now pick up your car.",
+    Assigned: "Your car has been checked in.",
+    default: "", // Fallback image
+  };
+  
 
   const fetchAppointments = async () => {
     try {
@@ -33,17 +47,21 @@ const Status = () => {
       );
 
       // Sort appointments by date (most recent first) and get the latest one
-      const latestAppointment = customerAppointments.sort(
+      const latest = customerAppointments.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
       )[0];
 
-      // Set the latest appointment's status
-      if (latestAppointment) {
-        setLatestStatus(
-          latestAppointment.status.charAt(0).toUpperCase() + latestAppointment.status.slice(1)
-        );
+      // Set the latest appointment details
+      if (latest) {
+        setLatestAppointment({
+          status: latest.status.charAt(0).toUpperCase() + latest.status.slice(1),
+          service: latest.service,
+          carDetails: `${latest.carYear} ${latest.carMake} ${latest.carModel}`,
+          date: new Date(latest.date).toLocaleDateString(),
+          time: latest.time,
+        });
       } else {
-        setLatestStatus(null);
+        setLatestAppointment(null);
       }
     } catch (error) {
       console.error("Error fetching appointments:", error.message);
@@ -60,12 +78,16 @@ const Status = () => {
       <h1>Car Status</h1>
 
       <section className="status-section">
-        {latestStatus ? (
+        {latestAppointment ? (
           <>
-            <p>Status: {latestStatus}</p>
+            <p>Status: {latestAppointment.status} - {statusMessages[latestAppointment.status]}</p>
+            <p>Service: {latestAppointment.service}</p>
+            <p>Car: {latestAppointment.carDetails}</p>
+            <p>Date: {latestAppointment.date}</p>
+            <p>Time: {latestAppointment.time}</p>
             <img
-              src={statusImages[latestStatus] || statusImages.default}
-              alt={latestStatus}
+              src={statusImages[latestAppointment.status] || statusImages.default}
+              alt={latestAppointment.status}
               className="status-image"
             />
           </>
