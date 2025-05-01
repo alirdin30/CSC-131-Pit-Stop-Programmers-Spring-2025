@@ -30,21 +30,27 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Add the route for updating the status of a submission
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
   
-  if (!status || !['pending', 'approved', 'denied'].includes(status)) {
-    return res.status(400).json({ error: 'Valid status is required (pending, approved, or denied)' });
+  // Convert to lowercase for validation
+  const normalizedStatus = status?.toLowerCase();
+  
+  if (!normalizedStatus || !['pending', 'approved', 'denied', 'rejected'].includes(normalizedStatus)) {
+    return res.status(400).json({ 
+      error: 'Valid status is required (pending, approved, denied, or rejected)' 
+    });
   }
   
+  const dbStatus = normalizedStatus === 'rejected' ? 'denied' : normalizedStatus;
+  
   try {
-    console.log(`Updating submission ${id} status to ${status}`);
+    console.log(`Updating submission ${id} status to ${dbStatus}`);
     
     const updatedSubmission = await HoursSubmitted.findByIdAndUpdate(
       id,
-      { status },
+      { status: dbStatus },
       { new: true } // Return the updated document
     );
     

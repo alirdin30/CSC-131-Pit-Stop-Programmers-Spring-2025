@@ -85,19 +85,17 @@ const ApproveHours = () => {
     setProcessingIds(prev => [...prev, submissionId]);
     
     try {
-      // Map the status values to match the schema enum values (capitalized first letter)
+      // FIXED: Use lowercase status values to match backend expectations
       const statusMap = {
-        'approved': 'Approved',
-        'denied': 'Rejected' // Note: Using "Rejected" to match your schema
+        'approved': 'approved',
+        'denied': 'denied'
       };
       
-      const schemaStatus = statusMap[newStatus];
-      
-      // Log what endpoint we're trying to hit
-      console.log(`Updating status for submission ${submissionId} to ${schemaStatus}`);
+      const apiStatus = statusMap[newStatus];
+      console.log(`Updating status for submission ${submissionId} to ${apiStatus}`);
       
       const response = await axios.put(`/api/hoursSubmitted/${submissionId}`, 
-        { status: schemaStatus },
+        { status: apiStatus },
         { 
           withCredentials: true,
           headers: {
@@ -108,11 +106,14 @@ const ApproveHours = () => {
       );
       
       if (response.status === 200 || response.status === 201) {
+        // For UI display purposes, we'll capitalize the first letter
+        const displayStatus = newStatus === 'approved' ? 'Approved' : 'Rejected';
+        
         // Update the local state to reflect the change
         setHoursSubmissions(prev => 
           prev.map(submission => 
             submission._id === submissionId 
-              ? { ...submission, status: newStatus } 
+              ? { ...submission, status: displayStatus } 
               : submission
           )
         );
