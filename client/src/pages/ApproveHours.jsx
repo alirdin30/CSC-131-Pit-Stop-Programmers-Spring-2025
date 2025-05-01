@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navigation from "../components/Navigation";
 import { UserContext } from "../context/UserContext";
+import "../App.css"; // Import the App.css file
 
 const ApproveHours = () => {
   const { userRole } = useContext(UserContext);
@@ -17,8 +18,6 @@ const ApproveHours = () => {
     try {
       setLoading(true);
       
-      console.log("Starting API request to fetch hours submissions...");
-      
       const response = await axios.get("/api/hoursSubmitted", { 
         withCredentials: true,
         timeout: 15000,  // Increased timeout
@@ -27,25 +26,16 @@ const ApproveHours = () => {
           'Accept': 'application/json'
         }
       });
-
-      console.log("API Response:", response.data);
-      console.log("Response Status:", response.status);
-      console.log("Response Headers:", response.headers);
       
       let submissions = [];
       
       if (Array.isArray(response.data) && response.data.length > 0) {
         submissions = response.data;
-        console.log(`Successfully parsed ${submissions.length} submissions`);
       } else if (response.data && Array.isArray(response.data.hours)) {
         submissions = response.data.hours;
-        console.log(`Successfully parsed ${submissions.length} submissions from hours property`);
       } else if (response.data && typeof response.data === 'object') {
         // If we get a single object, put it in an array
         submissions = [response.data];
-        console.log(`Parsed single submission object`);
-      } else {
-        console.log("No submissions data found in response structure:", response.data);
       }
       
       if (submissions.length > 0) {
@@ -56,12 +46,10 @@ const ApproveHours = () => {
                  (a.createdAt && b.createdAt ? new Date(b.createdAt) - new Date(a.createdAt) : 0);
         });
         
-        console.log(`Sorted ${sortedSubmissions.length} submissions`);
         setHoursSubmissions(sortedSubmissions);
         setMessage("");
         setMessageType("");
       } else {
-        console.log("No submissions found in response");
         setHoursSubmissions([]);
         setMessage("No hours submissions found in database.");
         setMessageType("info");
@@ -69,13 +57,10 @@ const ApproveHours = () => {
       
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching hours submissions:", error);
-      
       let errorMessage = "Network error. Please check your connection.";
       
       if (error.response) {
         errorMessage = `Error ${error.response.status}: ${error.response.data?.message || 'Unknown server error'}`;
-        console.error("Response error data:", error.response.data);
       } else if (error.request) {
         errorMessage = "No response received from server. Check if the server is running.";
       } else {
@@ -88,12 +73,7 @@ const ApproveHours = () => {
     }
   };
 
-  const debugState = () => {
-    console.log("Current state of hoursSubmissions:", hoursSubmissions);
-  };
-
   const handleRetry = () => {
-    console.log("Retrying data fetch...");
     setMessage("");
     fetchHourSubmissions();
   };
@@ -107,9 +87,7 @@ const ApproveHours = () => {
   };
 
   useEffect(() => {
-    console.log("ApproveHours component mounted");
     if (userRole === "admin") {
-      console.log("Fetching appointments for admin...");
       fetchHourSubmissions();
     } else {
       // Redirect to home page if the user is not an admin
@@ -139,9 +117,6 @@ const ApproveHours = () => {
         <div className="filter-controls">
           <button onClick={handleRetry} className="refresh-btn">
             Refresh Data
-          </button>
-          <button onClick={debugState} className="debug-btn" style={{marginLeft: '10px'}}>
-            Debug State
           </button>
         </div>
 
@@ -184,17 +159,6 @@ const ApproveHours = () => {
         ) : (
           <div className="no-submissions">
             <p>No hours submissions found.</p>
-            <div className="empty-state-info">
-              <h3>Troubleshooting Database Connection</h3>
-              <p>Your MongoDB has data but the API isn't returning it. Try these steps:</p>
-              <ol>
-                <li>Check server logs for error messages</li>
-                <li>Verify database connection string in your server config</li>
-                <li>Inspect API response in browser Network tab (F12)</li>
-                <li>Run the debug script to check collection and document structure</li>
-                <li>Verify that your model schema matches the database structure</li>
-              </ol>
-            </div>
           </div>
         )}
       </section>
