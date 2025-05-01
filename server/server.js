@@ -2,6 +2,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import routes from "./routes/routes.js";
 import cookieParser from "cookie-parser";
+import hoursSubmittedRoutes from "./routes/api/hoursSubmitted.js";
 import session from "express-session";
 import passport from "passport";
 
@@ -26,6 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(routes);
+app.use("/api/hoursSubmitted", hoursSubmittedRoutes);
 
 const PORT = process.env.PORT || 5001;
 
