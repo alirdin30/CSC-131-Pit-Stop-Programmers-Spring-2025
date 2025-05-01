@@ -25,7 +25,10 @@ const AdminServiceHistory = () => {
 
       // Sort all appointments by most recent
       // Admin should be able to see all appointments, regardless of their status, so we don't put in a .filter() here
-      const sortedAppointments = appointments.sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more recent appointments are at the top
+      const sortedAppointments = appointments.filter(
+        (appointment) =>
+          appointment.status !== "cancelled"
+      ).sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more recent appointments are at the top
         const a1 = new Date(`${new Date(appointment1.date).toDateString()} ${appointment1.time}`);
         const a2 = new Date(`${new Date(appointment2.date).toDateString()} ${appointment2.time}`);
         return a2 - a1;
