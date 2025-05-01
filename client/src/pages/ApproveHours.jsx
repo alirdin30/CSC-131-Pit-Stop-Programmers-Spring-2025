@@ -13,7 +13,7 @@ const ApproveHours = () => {
   const navigate = useNavigate();
 
   // Fetch hours submissions
-  const fetchHoursSubmissions = async () => {
+  const fetchHourSubmissions = async () => {
     try {
       setLoading(true);
       
@@ -88,11 +88,6 @@ const ApproveHours = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("ApproveHours component mounted");
-    fetchHoursSubmissions();
-  }, []);
-
   const debugState = () => {
     console.log("Current state of hoursSubmissions:", hoursSubmissions);
   };
@@ -100,7 +95,7 @@ const ApproveHours = () => {
   const handleRetry = () => {
     console.log("Retrying data fetch...");
     setMessage("");
-    fetchHoursSubmissions();
+    fetchHourSubmissions();
   };
 
   const safeGet = (obj, path, defaultValue = "") => {
@@ -110,6 +105,17 @@ const ApproveHours = () => {
       return defaultValue;
     }
   };
+
+  useEffect(() => {
+    console.log("ApproveHours component mounted");
+    if (userRole === "admin") {
+      console.log("Fetching appointments for admin...");
+      fetchHourSubmissions();
+    } else {
+      // Redirect to home page if the user is not an admin
+      navigate("/");
+    }
+  }, [userRole, navigate]);
 
   return (
     <div className="approve-hours-page">

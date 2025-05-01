@@ -16,11 +16,11 @@ const HoursSubmittedSchema = new mongoose.Schema({
     required: true
   },
   clockInTime: {
-    type: String,
+    type: Date,
     required: true
   },
   clockOutTime: {
-    type: String,
+    type: Date,
     required: true
   },
   hoursWorked: {

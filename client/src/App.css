@@ -39,7 +39,7 @@ a {
 .employee-service-history-page,
 .admin-service-history-page,
 .confirmation-page,
-.approve-hours,
+.approve-hours-page,
 .revenue-page,
 .reset-password-page,
 .customer-history-page,
@@ -85,6 +85,7 @@ a {
 .reset-password,
 .history-box,
 .edit-profile,
+.approve-hours,
 .manage-employee {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
