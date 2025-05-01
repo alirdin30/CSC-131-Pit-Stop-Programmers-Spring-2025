@@ -72,6 +72,7 @@ const CustomerHistory = () => {
             <thead>
               <tr>
                 <th>Service</th>
+                <th>Car</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Mechanic</th>
@@ -81,6 +82,7 @@ const CustomerHistory = () => {
               {appointments.map((appointment) => (
                 <tr key={appointment._id}>
                   <td>{appointment.service}</td>
+                  <td>{appointment.carYear + " " + appointment.carMake + " " + appointment.carModel}</td>
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>
                   <td>{appointment.time}</td>
                   <td>{appointment.assignedEmployee?.name || "Unassigned"}</td>
