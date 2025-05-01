@@ -11,6 +11,7 @@ const ApproveHours = () => {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(true);
+  const [processingIds, setProcessingIds] = useState([]); // Track submissions being processed
   const navigate = useNavigate();
 
   // Fetch hours submissions
@@ -70,6 +71,78 @@ const ApproveHours = () => {
       setMessage(`Failed to load hours submissions. ${errorMessage}`);
       setMessageType("error");
       setLoading(false);
+    }
+  };
+
+  // Function to update the status (approve or deny)
+  const updateStatus = async (submissionId, newStatus) => {
+    // Don't proceed if this submission is already being processed
+    if (processingIds.includes(submissionId)) {
+      return;
+    }
+
+    // Add this submission to the processing list
+    setProcessingIds(prev => [...prev, submissionId]);
+    
+    try {
+      // Map the status values to match the schema enum values (capitalized first letter)
+      const statusMap = {
+        'approved': 'Approved',
+        'denied': 'Rejected' // Note: Using "Rejected" to match your schema
+      };
+      
+      const schemaStatus = statusMap[newStatus];
+      
+      // Log what endpoint we're trying to hit
+      console.log(`Updating status for submission ${submissionId} to ${schemaStatus}`);
+      
+      const response = await axios.put(`/api/hoursSubmitted/${submissionId}`, 
+        { status: schemaStatus },
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        }
+      );
+      
+      if (response.status === 200 || response.status === 201) {
+        // Update the local state to reflect the change
+        setHoursSubmissions(prev => 
+          prev.map(submission => 
+            submission._id === submissionId 
+              ? { ...submission, status: newStatus } 
+              : submission
+          )
+        );
+        
+        setMessage(`Successfully ${newStatus === 'approved' ? 'approved' : 'denied'} hours submission.`);
+        setMessageType("success");
+        
+        // Clear the message after 3 seconds
+        setTimeout(() => {
+          setMessage("");
+          setMessageType("");
+        }, 3000);
+      }
+    } catch (error) {
+      let errorMessage = "Network error. Please check your connection.";
+      
+      if (error.response) {
+        errorMessage = `Error ${error.response.status}: ${error.response.data?.message || 'Unknown server error'}`;
+        console.error('Error response:', error.response.data);
+      } else if (error.request) {
+        errorMessage = "No response received from server. Check if the server is running.";
+      } else {
+        errorMessage = `Request error: ${error.message}`;
+      }
+      
+      setMessage(`Failed to update submission status. ${errorMessage}`);
+      setMessageType("error");
+    } finally {
+      // Remove this submission from the processing list
+      setProcessingIds(prev => prev.filter(id => id !== submissionId));
     }
   };
 
@@ -134,11 +207,12 @@ const ApproveHours = () => {
                 <th>Hours Worked</th>
                 <th>Status</th>
                 <th>Submitted On</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {hoursSubmissions.map((submission, index) => (
-                <tr key={submission._id || index} className={`status-${safeGet(submission, 'status', 'unknown')}`}>
+                <tr key={submission._id || index} className={`status-${safeGet(submission, 'status', 'unknown').toLowerCase()}`}>
                   <td>{safeGet(submission, 'employeeName')}</td>
                   <td>{safeGet(submission, 'employeeEmail')}</td>
                   <td>{safeGet(submission, 'shiftDate') ? new Date(submission.shiftDate).toLocaleDateString() : 'N/A'}</td>
@@ -146,12 +220,31 @@ const ApproveHours = () => {
                   <td>{safeGet(submission, 'clockOutTime')}</td>
                   <td>{safeGet(submission, 'hoursWorked')}</td>
                   <td>
-                    <span className={`status-badge ${safeGet(submission, 'status', 'unknown')}`}>
-                      {safeGet(submission, 'status', 'Unknown').charAt(0).toUpperCase() + 
-                      safeGet(submission, 'status', 'Unknown').slice(1)}
+                    <span className={`status-badge ${safeGet(submission, 'status', 'unknown').toLowerCase()}`}>
+                      {safeGet(submission, 'status', 'Unknown')}
                     </span>
                   </td>
                   <td>{safeGet(submission, 'createdAt') ? new Date(submission.createdAt).toLocaleString() : 'N/A'}</td>
+                  <td className="action-buttons">
+                    {safeGet(submission, 'status') !== 'Approved' && (
+                      <button 
+                        onClick={() => updateStatus(submission._id, 'approved')}
+                        className="approve-btn"
+                        disabled={processingIds.includes(submission._id) || safeGet(submission, 'status') === 'Approved'}
+                      >
+                        {processingIds.includes(submission._id) ? 'Processing...' : 'Approve'}
+                      </button>
+                    )}
+                    {safeGet(submission, 'status') !== 'Rejected' && (
+                      <button 
+                        onClick={() => updateStatus(submission._id, 'denied')}
+                        className="deny-btn"
+                        disabled={processingIds.includes(submission._id) || safeGet(submission, 'status') === 'Rejected'}
+                      >
+                        {processingIds.includes(submission._id) ? 'Processing...' : 'Deny'}
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

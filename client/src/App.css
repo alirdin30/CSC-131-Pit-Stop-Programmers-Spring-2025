@@ -1082,8 +1082,8 @@ h1 {
 }
 .status-badge.pending {
   background-color: 
-#f39c12;
-  color: #000;
+#007bff;
+  color: #ffffff;
 }
 .status-badge.approved {
   background-color: 
@@ -1109,4 +1109,35 @@ h1 {
   .approve-hours h1 {
     font-size: 2rem;
     }
+}
+
+.refresh-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.approve-btn {
+  background-color: #007bff;
+  border-radius: 5px;
+  color: white;
+  border: 2px;
+  padding: 4px 3px;
+  cursor: pointer;
+}
+
+.deny-btn{
+  background-color: #007bff;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  padding: 4px 3px;
+  cursor: pointer;
+  border: 2px;
+  margin-left: 10px;
 }
