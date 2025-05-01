@@ -1,16 +1,16 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'pitstopprogrammers@gmail.com', // will be in process.env.EMAIL_USER
-    pass: 'lznwslwwwkiqnmta'         // will be in process.env.EMAIL_PASS
-  },
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // or 'STARTTLS'
+  user: process.env.EMAIL_USER, // from .env
+  pass: process.env.EMAIL_PASS         // from .env
 });
 
 export const sendResetPasswordEmail = async (email, resetLink) => {
   const mailOptions = {
-    from: '"Pit Stop Programmers" <pitstopprogrammers@gmail.com>',
+    from: `"Pit Stop Programmers" <${process.env.EMAIL_USER}>`, // Use value from .env
     to: email,
     subject: 'Reset Your Password',
     text: `Click the link to reset your password: ${resetLink}`,

@@ -15,6 +15,7 @@ import EditProfile from './pages/EditProfile';
 import CustomerAccount from './pages/CustomerAccount';
 import CustomerHistory from './pages/CustomerHistory';
 import CustomerViewAppointments from './pages/CustomerViewAppointments';
+import Status from './pages/Status'
 
 //Employee side imports
 import EmployeeAccount from './pages/EmployeeAccount';
@@ -47,7 +48,7 @@ function App() {
       
       {/*Customer side pages*/}
       <Route path="/customer-account" element={<CustomerAccount />} />
-      <Route path="/customer-car-status" element={<CustomerAccount />} /> {/*Once we make the car status page for the customer side, replace element here*/}
+      <Route path="/customer-car-status" element={<Status />} /> {/*Once we make the car status page for the customer side, replace element here*/}
       <Route path="/customer-view-appointments" element={<CustomerViewAppointments />} />
       <Route path="/customer-history" element={<CustomerHistory />} />
       

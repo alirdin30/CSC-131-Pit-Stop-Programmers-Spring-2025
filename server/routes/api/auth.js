@@ -93,7 +93,7 @@ router.post('/api/auth/forgot-password', async (req, res) => {
     }
 
     // Generate a reset token with user ID and expiration time (1 hour)
-    const resetToken = jwt.sign({ id: user._id }, 'pitstopprogrammers', { expiresIn: '1h' }); // 'pitstopprogrammers' will be in process.env.JWT_SECRET
+    const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Create the reset link
     const resetLink = `http://localhost:5173/reset-password?token=${resetToken}`;
@@ -127,7 +127,7 @@ router.post(
 
     try {
       // Verify the reset token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'pitstopprogrammers');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       // Find the user by ID extracted from the token
       const user = await User.findById(decoded.id);
