@@ -7,6 +7,7 @@ import axios from "axios";
 const EmployeeAccount = () => {
   const navigate = useNavigate();
   const [employeeId, setEmployeeId] = useState(null);
+  const [hourlyPay, setHourlyPay] = useState(null);
   const [isClockedIn, setIsClockedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState("");
@@ -18,6 +19,7 @@ const EmployeeAccount = () => {
         const res = await axios.get("/api/auth/status", { withCredentials: true });
         const id = res.data.user._id;
         setEmployeeId(id);
+        setHourlyPay(res.data.user.hourlyPay);
         // Check if currently clocked in
         const hoursRes = await axios.get(`/api/hours/employee/${id}`);
         const openClockIn = hoursRes.data.find(h => h.clockOut === null);
@@ -87,6 +89,9 @@ const EmployeeAccount = () => {
             <p>Loading...</p>
           ) : (
             <>
+              {hourlyPay !== null && (
+                <p>Hourly Pay: <b>${hourlyPay.toFixed(2)}</b></p>
+              )}
               <p>Status: <b>{isClockedIn ? "Clocked In" : "Clocked Out"}</b></p>
               <BlueButton
                 text={isClockedIn ? "Clock Out" : "Clock In"}

@@ -21,6 +21,11 @@ const UserSchema = new mongoose.Schema({
     enum: ["customer", "employee", "admin"],
     default: "customer",
   },
+  hourlyPay: {
+    type: Number,
+    required: function() { return this.role === "employee"; },
+    min: 0,
+  }
 });
 
 export default mongoose.model("User", UserSchema);

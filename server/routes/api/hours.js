@@ -81,4 +81,45 @@ router.put('/:id/status', async (req, res) => {
   }
 });
 
+// Payroll Summary Endpoint
+// Returns: [{ name, email, hourlyPay, totalApprovedHours, totalPayment }]
+router.get('/payroll-summary', async (req, res) => {
+  try {
+    // Get all employees
+    const employees = await User.find({ role: 'employee' });
+    // Get all approved hours
+    const hoursRecords = await Hours.find({ status: 'approved', clockIn: { $ne: null }, clockOut: { $ne: null } });
+    // Group hours by employee
+    const hoursByEmployee = {};
+    hoursRecords.forEach(record => {
+      const empId = record.employee.toString();
+      if (!hoursByEmployee[empId]) hoursByEmployee[empId] = [];
+      hoursByEmployee[empId].push(record);
+    });
+    // Build payroll summary
+    const payroll = employees.map(emp => {
+      const empHours = hoursByEmployee[emp._id.toString()] || [];
+      // Sum total approved hours (in decimal hours)
+      let totalApprovedHours = 0;
+      empHours.forEach(h => {
+        if (h.clockIn && h.clockOut) {
+          const diffMs = new Date(h.clockOut) - new Date(h.clockIn);
+          totalApprovedHours += diffMs / (1000 * 60 * 60); // convert ms to hours
+        }
+      });
+      const totalPayment = emp.hourlyPay && totalApprovedHours ? (emp.hourlyPay * totalApprovedHours) : 0;
+      return {
+        name: emp.name,
+        email: emp.email,
+        hourlyPay: emp.hourlyPay || 0,
+        totalApprovedHours: Number(totalApprovedHours.toFixed(2)),
+        totalPayment: Number(totalPayment.toFixed(2)),
+      };
+    });
+    res.json(payroll);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 export default router;

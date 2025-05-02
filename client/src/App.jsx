@@ -28,7 +28,7 @@ import AdminAccount from './pages/AdminAccount';
 import EditServices from './pages/EditServices';
 import ApproveHours from './pages/ApproveHours';
 import Employees from './pages/Employees';
-import Revenue from './pages/Revenue';
+import Statistics from './pages/Statistics';
 import AdminServiceHistory from './pages/AdminServiceHistory';
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
       <Route path="/admin-service-history" element={<AdminServiceHistory />} />
       <Route path="/ApproveHours" element={<ApproveHours />} />
       <Route path="/manage-employees" element={<Employees />} />
-      <Route path="/revenue" element={<Revenue />} />
+      <Route path="/statistics" element={<Statistics />} />
     </Routes> 
   );
 }
