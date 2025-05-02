@@ -62,7 +62,8 @@ router.post(
         name,
         password: hashedPassword,
         role: role || "customer", // Default role is customer
-        ...(role === "employee" && hourlyPay !== undefined ? { hourlyPay } : {})
+        // Always include hourlyPay for employees (default to 0 if not provided)
+        ...(role === "employee" ? { hourlyPay: hourlyPay || 0 } : {})
       });
 
       await user.save();
