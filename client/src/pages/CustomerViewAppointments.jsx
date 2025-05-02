@@ -84,7 +84,7 @@ const CustomerHistory = () => {
       <Navigation />
 
       <section className="customer-history">
-        <h1>Customer Service History</h1>
+        <h1>View Appointments</h1>
         {message && (
           <p className={`message ${messageType === "success" ? "success" : "error"}`}>
             {message}
@@ -102,6 +102,7 @@ const CustomerHistory = () => {
                 <th>Time</th>
                 <th>Mechanic</th>
                 <th>Actions</th>
+                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -124,6 +125,7 @@ const CustomerHistory = () => {
                       </button>
                     )}
                   </td>
+                  <td>{appointment.notes || ''}</td>
                 </tr>
               ))}
             </tbody>
