@@ -22,8 +22,9 @@ const EmployeeAccount = () => {
         setHourlyPay(res.data.user.hourlyPay);
         // Check if currently clocked in
         const hoursRes = await axios.get(`/api/hours/employee/${id}`);
-        const openClockIn = hoursRes.data.find(h => h.clockOut === null);
-        setIsClockedIn(!!openClockIn);
+        console.log('Employee hours data:', hoursRes.data);
+        // Use the isClockedIn flag directly from the server
+        setIsClockedIn(hoursRes.data.isClockedIn);
         setStatusMsg("");
       } catch (err) {
         setStatusMsg("Error fetching status");

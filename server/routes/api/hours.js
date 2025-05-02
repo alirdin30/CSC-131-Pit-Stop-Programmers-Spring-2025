@@ -44,7 +44,14 @@ router.get('/employee/:employeeId', async (req, res) => {
   try {
     const { employeeId } = req.params;
     const records = await Hours.find({ employee: employeeId });
-    res.json(records);
+    
+    // Check if employee is currently clocked in
+    const isClockedIn = await Hours.findOne({ employee: employeeId, clockOut: null });
+    
+    res.json({
+      records,
+      isClockedIn: !!isClockedIn
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
