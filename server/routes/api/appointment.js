@@ -125,6 +125,7 @@ router.get('/api/appointments/service-revenue', auth, async (req, res) => {
       },
       {
         $lookup: {
+          preserveNullAndEmptyArrays: true, // Include services with no appointments
           from: "services", // Join with the "services" collection
           localField: "_id", // Match the "_id" (service name) in appointments
           foreignField: "name", // Match the "name" in services
@@ -138,8 +139,8 @@ router.get('/api/appointments/service-revenue', auth, async (req, res) => {
         $project: {
           _id: 1, // Service name
           count: 1, // Number of times the service was sold
-          price: "$serviceDetails.price", // Price of the service
-          revenue: { $multiply: ["$count", "$serviceDetails.price"] }, // Calculate revenue
+          price: { $toDouble: "$serviceDetails.price" }, // Convert price to a number
+          revenue: { $multiply: ["$count", { $toDouble: "$serviceDetails.price" }] }, // Calculate revenue
         },
       },
     ]);
