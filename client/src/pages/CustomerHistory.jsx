@@ -71,12 +71,12 @@ const CustomerHistory = () => {
           <table className="appointments-table">
             <thead>
               <tr>
-                <th>Employee</th>
-                <th>Notes</th>
+                <th>Service</th>
                 <th>Car</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Mechanic</th>
+                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
