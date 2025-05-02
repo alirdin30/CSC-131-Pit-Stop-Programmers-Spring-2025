@@ -71,7 +71,8 @@ const CustomerHistory = () => {
           <table className="appointments-table">
             <thead>
               <tr>
-                <th>Service</th>
+                <th>Employee</th>
+                <th>Notes</th>
                 <th>Car</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -86,6 +87,7 @@ const CustomerHistory = () => {
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>
                   <td>{appointment.time}</td>
                   <td>{appointment.assignedEmployee?.name || "Unassigned"}</td>
+<td>{appointment.notes || ''}</td>
                 </tr>
               ))}
             </tbody>

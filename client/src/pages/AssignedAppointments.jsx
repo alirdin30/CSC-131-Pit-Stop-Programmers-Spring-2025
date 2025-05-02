@@ -100,6 +100,7 @@ const AssignedAppointments = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Customer</th>
+                <th>Notes</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -111,6 +112,35 @@ const AssignedAppointments = () => {
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>
                   <td>{appointment.time}</td>
                   <td>{appointment.user.name}</td>
+                  <td>
+                    <textarea
+                      className="input-box"
+                      value={appointment.notes || ''}
+                      onChange={e => {
+                        const value = e.target.value;
+                        setAppointments(prev => prev.map(a => a._id === appointment._id ? { ...a, notes: value } : a));
+                      }}
+                      rows={2}
+                      style={{ width: '100%', marginBottom: '8px', borderRadius: '5px', padding: '8px', border: '1px solid #ccc', fontSize: '15px' }}
+                      disabled={appointment.status === "completed"}
+                    />
+                    <button
+                      className="blue-button"
+                      style={{ marginTop: '4px', width: '100%' }}
+                      disabled={appointment.status === "completed"}
+                      onClick={async () => {
+                        try {
+                          await axios.put(`/api/appointments/${appointment._id}/notes`, { notes: appointment.notes }, { withCredentials: true });
+                          setMessage("Notes saved.");
+                          setMessageType("success");
+                        } catch (err) {
+                          setMessage("Failed to save notes: " + (err.response?.data?.message || err.message));
+                          setMessageType("error");
+                          console.error("Failed to save notes:", err.response?.data || err.message);
+                        }
+                      }}
+                    >Save</button>
+                  </td>
                   <td>
                     {appointment.status === "completed" ? (
                       <span>Completed</span>

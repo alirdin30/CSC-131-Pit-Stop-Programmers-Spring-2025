@@ -78,6 +78,7 @@ const AdminServiceHistory = () => {
                 <th>Customer</th>
                 <th>Employee</th>
                 <th>Status</th>
+<th>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -90,6 +91,7 @@ const AdminServiceHistory = () => {
                   <td>{appointment.user.name}</td>
                   <td>{appointment.assignedEmployee?.name || "Unassigned"}</td>
                   <td>{appointment.status}</td>
+<td>{appointment.notes || ''}</td>
                 </tr>
               ))}
             </tbody>

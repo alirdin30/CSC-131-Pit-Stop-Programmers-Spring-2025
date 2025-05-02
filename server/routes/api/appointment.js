@@ -86,6 +86,29 @@ router.put('/api/appointments/:id/assign', auth, async (req, res) => {
   }
 });
 
+// @route   PUT /api/appointments/:id/notes
+// @desc    Update notes for an appointment (assigned employee only)
+// @access  Private
+router.put('/api/appointments/:id/notes', auth, async (req, res) => {
+  try {
+    const { notes } = req.body;
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+    // Only assigned employee can edit notes
+    if (!appointment.assignedEmployee || appointment.assignedEmployee.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Not authorized to add notes to this appointment" });
+    }
+    appointment.notes = notes || '';
+    await appointment.save();
+    res.status(200).json({ message: "Notes updated successfully", appointment });
+  } catch (error) {
+    console.error("Error updating appointment notes:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // @route   PUT /api/appointments/:id
 // @desc    Update the status of an appointment
 // @access  Private

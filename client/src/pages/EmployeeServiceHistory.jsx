@@ -76,6 +76,7 @@ const EmployeeServiceHistory = () => {
                 <th>Date</th>
                 <th>Time</th>
                 <th>Customer</th>
+<th>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -86,6 +87,7 @@ const EmployeeServiceHistory = () => {
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>
                   <td>{appointment.time}</td>
                   <td>{appointment.user.name}</td>
+<td>{appointment.notes || ''}</td>
                 </tr>
               ))}
             </tbody>
