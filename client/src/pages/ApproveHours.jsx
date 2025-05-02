@@ -141,14 +141,9 @@ const ApproveHours = () => {
         // Re-apply the current filter with the updated data
         applyStatusFilter(updatedSubmissions, statusFilter);
         
-        setMessage(`Successfully ${newStatus === 'Approved' ? 'approved' : 'rejected'} hours submission.`);
-        setMessageType("success");
-        
-        // Clear the message after 3 seconds
-        setTimeout(() => {
-          setMessage("");
-          setMessageType("");
-        }, 3000);
+        // Clear any existing messages - we don't show success messages anymore
+        setMessage("");
+        setMessageType("");
       }
     } catch (error) {
       let errorMessage = "Network error. Please check your connection.";
@@ -223,22 +218,15 @@ const ApproveHours = () => {
         <h1>Employee Hours</h1>
 
         {message && (
-          <div className={`message ${messageType === "success" ? "success" : 
-                                    messageType === "info" ? "info" : "error"}`}>
+          <div className={`message ${messageType === "info" ? "info" : "error"}`}>
             <p>{message}</p>
-            {messageType !== "success" && (
-              <button onClick={handleRetry} className="retry-btn">
-                Retry
-              </button>
-            )}
+            <button onClick={handleRetry} className="retry-btn">
+              Retry
+            </button>
           </div>
         )}
 
         <div className="filter-controls">
-          <button onClick={handleRetry} className="refresh-btn">
-            Refresh Data
-          </button>
-          
           <div className="status-filter">
             <label htmlFor="status-select">Filter by status: </label>
             <select 
