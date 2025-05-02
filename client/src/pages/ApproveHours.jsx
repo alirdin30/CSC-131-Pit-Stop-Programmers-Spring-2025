@@ -8,10 +8,12 @@ import "../App.css"; // Import the App.css file
 const ApproveHours = () => {
   const { userRole } = useContext(UserContext);
   const [hoursSubmissions, setHoursSubmissions] = useState([]);
+  const [filteredSubmissions, setFilteredSubmissions] = useState([]);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(true);
   const [processingIds, setProcessingIds] = useState([]); // Track submissions being processed
+  const [statusFilter, setStatusFilter] = useState("All"); // Filter state: All, Pending, Approved, Rejected
   const navigate = useNavigate();
 
   // Fetch hours submissions
@@ -40,7 +42,26 @@ const ApproveHours = () => {
       }
       
       if (submissions.length > 0) {
-        const sortedSubmissions = [...submissions].sort((a, b) => {
+        // Normalize the status values to be consistent
+        const normalizedSubmissions = submissions.map(submission => {
+          let normalizedStatus = submission.status;
+          
+          // Normalize status to make sure we're using "Rejected" consistently
+          if (normalizedStatus === "denied" || normalizedStatus === "Denied") {
+            normalizedStatus = "Rejected";
+          } else if (normalizedStatus === "approved") {
+            normalizedStatus = "Approved";
+          } else if (normalizedStatus === "pending") {
+            normalizedStatus = "Pending";
+          }
+          
+          return {
+            ...submission,
+            status: normalizedStatus
+          };
+        });
+        
+        const sortedSubmissions = [...normalizedSubmissions].sort((a, b) => {
           const dateA = a.shiftDate ? new Date(a.shiftDate) : new Date();
           const dateB = b.shiftDate ? new Date(b.shiftDate) : new Date();
           return dateB - dateA || 
@@ -48,6 +69,8 @@ const ApproveHours = () => {
         });
         
         setHoursSubmissions(sortedSubmissions);
+        // Apply current filter to the new data
+        applyStatusFilter(sortedSubmissions, statusFilter);
         setMessage("");
         setMessageType("");
       } else {
@@ -85,12 +108,13 @@ const ApproveHours = () => {
     setProcessingIds(prev => [...prev, submissionId]);
     
     try {
-      // FIXED: Use lowercase status values to match backend expectations
+      // Map frontend status terms to backend API values
       const statusMap = {
-        'approved': 'approved',
-        'denied': 'denied'
+        'Approved': 'approved',
+        'Rejected': 'denied'
       };
       
+      // For API call, use lowercase status values
       const apiStatus = statusMap[newStatus];
       console.log(`Updating status for submission ${submissionId} to ${apiStatus}`);
       
@@ -106,19 +130,18 @@ const ApproveHours = () => {
       );
       
       if (response.status === 200 || response.status === 201) {
-        // For UI display purposes, we'll capitalize the first letter
-        const displayStatus = newStatus === 'approved' ? 'Approved' : 'Rejected';
-        
         // Update the local state to reflect the change
-        setHoursSubmissions(prev => 
-          prev.map(submission => 
-            submission._id === submissionId 
-              ? { ...submission, status: displayStatus } 
-              : submission
-          )
+        const updatedSubmissions = hoursSubmissions.map(submission => 
+          submission._id === submissionId 
+            ? { ...submission, status: newStatus } 
+            : submission
         );
         
-        setMessage(`Successfully ${newStatus === 'approved' ? 'approved' : 'denied'} hours submission.`);
+        setHoursSubmissions(updatedSubmissions);
+        // Re-apply the current filter with the updated data
+        applyStatusFilter(updatedSubmissions, statusFilter);
+        
+        setMessage(`Successfully ${newStatus === 'Approved' ? 'approved' : 'rejected'} hours submission.`);
         setMessageType("success");
         
         // Clear the message after 3 seconds
@@ -151,6 +174,24 @@ const ApproveHours = () => {
     setMessage("");
     fetchHourSubmissions();
   };
+  
+  // Function to filter submissions by status
+  const applyStatusFilter = (submissions, filter) => {
+    if (filter === "All") {
+      setFilteredSubmissions(submissions);
+    } else {
+      const filtered = submissions.filter(submission => 
+        safeGet(submission, 'status', 'Pending') === filter
+      );
+      setFilteredSubmissions(filtered);
+    }
+  };
+  
+  // Handle status filter change
+  const handleFilterChange = (filter) => {
+    setStatusFilter(filter);
+    applyStatusFilter(hoursSubmissions, filter);
+  };
 
   const safeGet = (obj, path, defaultValue = "") => {
     try {
@@ -168,6 +209,11 @@ const ApproveHours = () => {
       navigate("/");
     }
   }, [userRole, navigate]);
+  
+  // Initialize filtered submissions when hoursSubmissions changes
+  useEffect(() => {
+    applyStatusFilter(hoursSubmissions, statusFilter);
+  }, [hoursSubmissions]);
 
   return (
     <div className="approve-hours-page">
@@ -192,11 +238,26 @@ const ApproveHours = () => {
           <button onClick={handleRetry} className="refresh-btn">
             Refresh Data
           </button>
+          
+          <div className="status-filter">
+            <label htmlFor="status-select">Filter by status: </label>
+            <select 
+              id="status-select"
+              value={statusFilter}
+              onChange={(e) => handleFilterChange(e.target.value)}
+              className="status-select"
+            >
+              <option value="All">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
         </div>
 
         {loading ? (
           <p className="loading">Loading hours submissions...</p>
-        ) : hoursSubmissions.length > 0 ? (
+        ) : filteredSubmissions.length > 0 ? (
           <table className="hours-table">
             <thead>
               <tr>
@@ -212,44 +273,53 @@ const ApproveHours = () => {
               </tr>
             </thead>
             <tbody>
-              {hoursSubmissions.map((submission, index) => (
-                <tr key={submission._id || index} className={`status-${safeGet(submission, 'status', 'unknown').toLowerCase()}`}>
-                  <td>{safeGet(submission, 'employeeName')}</td>
-                  <td>{safeGet(submission, 'employeeEmail')}</td>
-                  <td>{safeGet(submission, 'shiftDate') ? new Date(submission.shiftDate).toLocaleDateString() : 'N/A'}</td>
-                  <td>{safeGet(submission, 'clockInTime')}</td>
-                  <td>{safeGet(submission, 'clockOutTime')}</td>
-                  <td>{safeGet(submission, 'hoursWorked')}</td>
-                  <td>
-                    <span className={`status-badge ${safeGet(submission, 'status', 'unknown').toLowerCase()}`}>
-                      {safeGet(submission, 'status', 'Unknown')}
-                    </span>
-                  </td>
-                  <td>{safeGet(submission, 'createdAt') ? new Date(submission.createdAt).toLocaleString() : 'N/A'}</td>
-                  <td className="action-buttons">
-                    {safeGet(submission, 'status') !== 'Approved' && (
-                      <button 
-                        onClick={() => updateStatus(submission._id, 'approved')}
-                        className="approve-btn"
-                        disabled={processingIds.includes(submission._id) || safeGet(submission, 'status') === 'Approved'}
-                      >
-                        {processingIds.includes(submission._id) ? 'Processing...' : 'Approve'}
-                      </button>
-                    )}
-                    {safeGet(submission, 'status') !== 'Rejected' && (
-                      <button 
-                        onClick={() => updateStatus(submission._id, 'denied')}
-                        className="deny-btn"
-                        disabled={processingIds.includes(submission._id) || safeGet(submission, 'status') === 'Rejected'}
-                      >
-                        {processingIds.includes(submission._id) ? 'Processing...' : 'Deny'}
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
+              {filteredSubmissions.map((submission, index) => {
+                // Get status and normalize it for display consistency
+                const status = safeGet(submission, 'status', 'Pending');
+                
+                return (
+                  <tr key={submission._id || index} className={`status-${status.toLowerCase()}`}>
+                    <td>{safeGet(submission, 'employeeName')}</td>
+                    <td>{safeGet(submission, 'employeeEmail')}</td>
+                    <td>{safeGet(submission, 'shiftDate') ? new Date(submission.shiftDate).toLocaleDateString() : 'N/A'}</td>
+                    <td>{safeGet(submission, 'clockInTime')}</td>
+                    <td>{safeGet(submission, 'clockOutTime')}</td>
+                    <td>{safeGet(submission, 'hoursWorked')}</td>
+                    <td>
+                      <span className={`status-badge ${status.toLowerCase()}`}>
+                        {status}
+                      </span>
+                    </td>
+                    <td>{safeGet(submission, 'createdAt') ? new Date(submission.createdAt).toLocaleString() : 'N/A'}</td>
+                    <td className="action-buttons">
+                      {status !== 'Approved' && (
+                        <button 
+                          onClick={() => updateStatus(submission._id, 'Approved')}
+                          className="approve-btn"
+                          disabled={processingIds.includes(submission._id)}
+                        >
+                          {processingIds.includes(submission._id) ? 'Processing...' : 'Approve'}
+                        </button>
+                      )}
+                      {status !== 'Rejected' && (
+                        <button 
+                          onClick={() => updateStatus(submission._id, 'Rejected')}
+                          className="deny-btn"
+                          disabled={processingIds.includes(submission._id)}
+                        >
+                          {processingIds.includes(submission._id) ? 'Processing...' : 'Deny'}
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
+        ) : hoursSubmissions.length > 0 ? (
+          <div className="no-submissions">
+            <p>No submissions match the selected filter: {statusFilter}</p>
+          </div>
         ) : (
           <div className="no-submissions">
             <p>No hours submissions found.</p>
