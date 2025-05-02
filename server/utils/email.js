@@ -1,11 +1,20 @@
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+// Ensure environment variables are loaded
+dotenv.config();
+
+// Debug log (without exposing actual credentials)
+console.log('Email configuration check:');
+console.log('EMAIL_USER exists:', !!process.env.EMAIL_USER);
+console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false, // or 'STARTTLS'
-  user: process.env.EMAIL_USER, // from .env
-  pass: process.env.EMAIL_PASS         // from .env
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
 });
 
 export const sendResetPasswordEmail = async (email, resetLink) => {
