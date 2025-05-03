@@ -25,7 +25,10 @@ const AdminServiceHistory = () => {
 
       // Sort all appointments by most recent
       // Admin should be able to see all appointments, regardless of their status, so we don't put in a .filter() here
-      const sortedAppointments = appointments.sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more recent appointments are at the top
+      const sortedAppointments = appointments.filter(
+        (appointment) =>
+          appointment.status !== "cancelled"
+      ).sort((appointment1, appointment2) => { //sorting the apppointments by date and time so that more recent appointments are at the top
         const a1 = new Date(`${new Date(appointment1.date).toDateString()} ${appointment1.time}`);
         const a2 = new Date(`${new Date(appointment2.date).toDateString()} ${appointment2.time}`);
         return a2 - a1;
@@ -69,22 +72,26 @@ const AdminServiceHistory = () => {
             <thead>
               <tr>
                 <th>Service</th>
+                <th>Car</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Customer</th>
                 <th>Employee</th>
                 <th>Status</th>
+<th>Notes</th>
               </tr>
             </thead>
             <tbody>
               {appointments.map((appointment) => (
                 <tr key={appointment._id}>
                   <td>{appointment.service}</td>
+                  <td>{appointment.carYear + " " + appointment.carMake + " " + appointment.carModel}</td>
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>
                   <td>{appointment.time}</td>
                   <td>{appointment.user.name}</td>
                   <td>{appointment.assignedEmployee?.name || "Unassigned"}</td>
                   <td>{appointment.status}</td>
+<td>{appointment.notes || ''}</td>
                 </tr>
               ))}
             </tbody>

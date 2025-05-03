@@ -10,6 +10,7 @@ const Employees = () => {
   const { userRole } = useContext(UserContext);
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
+  const [editingPay, setEditingPay] = useState({}); // { [employeeId]: value }
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -218,6 +219,7 @@ const Employees = () => {
                     <tr>
                       <th>Name</th>
                       <th>Email</th>
+                      <th>Hourly Pay ($)</th>
                       <th className="actions-column">Actions</th>
                     </tr>
                   </thead>
@@ -226,6 +228,39 @@ const Employees = () => {
                       <tr key={employee._id}>
                         <td>{employee.name}</td>
                         <td>{employee.email}</td>
+                        <td>
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value={editingPay[employee._id] !== undefined ? editingPay[employee._id] : (employee.hourlyPay ?? '')}
+                            onChange={e => {
+                              const value = e.target.value;
+                              setEditingPay(prev => ({ ...prev, [employee._id]: value }));
+                            }}
+                            onBlur={async (e) => {
+                              const value = parseFloat(editingPay[employee._id]);
+                              if (!isNaN(value) && value !== employee.hourlyPay) {
+                                try {
+                                  setLoading(true);
+                                  await axios.put(`/api/user/${employee.email}`,
+                                    { hourlyPay: value },
+                                    { withCredentials: true }
+                                  );
+                                  setEmployees(prev => prev.map(emp => emp._id === employee._id ? { ...emp, hourlyPay: value } : emp));
+                                  setMessage(`Hourly pay updated for ${employee.name}`);
+                                  setMessageType('success');
+                                } catch (err) {
+                                  setMessage('Failed to update hourly pay.');
+                                  setMessageType('error');
+                                } finally {
+                                  setLoading(false);
+                                }
+                              }
+                            }}
+                            style={{ width: '90px' }}
+                          />
+                        </td>
                         <td className="actions-cell">
                           <button 
                             onClick={() => confirmDelete(employee)}

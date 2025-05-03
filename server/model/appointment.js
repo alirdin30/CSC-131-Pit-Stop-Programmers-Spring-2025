@@ -47,6 +47,11 @@ const AppointmentSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  notes: {
+    type: String,
+    trim: true,
+    default: ''
   }
 });
 

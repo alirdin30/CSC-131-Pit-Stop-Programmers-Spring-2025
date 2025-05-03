@@ -43,6 +43,7 @@ a {
 .revenue-page,
 .reset-password-page,
 .customer-history-page,
+.status-page,
 .edit-profile-page {
   min-height: 100vh;
   margin: 0;
@@ -52,6 +53,75 @@ a {
   color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
+}
+
+/* CSS for the images on the status page */
+.status-image {
+  width: 800px;
+  height: 100px;
+  margin-top: 10px;
+}
+
+/* Approve Hours Page Styles */
+.approve-hours-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.approve-hours-entry {
+  border: 1px solid #ccc;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.approve-hours-status {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.approve-hours-status-pending {
+  color: orange;
+}
+.approve-hours-status-approved {
+  color: #4caf50;
+}
+.approve-hours-status-denied {
+  color: #f44336;
+}
+
+.approve-hours-actions {
+  margin-top: 8px;
+}
+
+.approve-hours-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1em;
+  margin-right: 8px;
+  transition: background 0.2s;
+}
+.approve-hours-btn-approve {
+  background: #4caf50;
+}
+.approve-hours-btn-approve:hover {
+  background: #388e3c;
+}
+.approve-hours-btn-deny {
+  background: #f44336;
+}
+.approve-hours-btn-deny:hover {
+  background: #c62828;
 }
 
 /* Revenue page styles */
@@ -71,6 +141,174 @@ a {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
 }
 
+/* Payroll Table Styles (matches employee-table/appointments-table) */
+.payroll-summary {
+  margin: 30px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.payroll-table {
+  width: 100%;
+  max-width: 900px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.payroll-table th,
+.payroll-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #555;
+  text-align: center;
+}
+
+.payroll-table th {
+  background: linear-gradient(to right, #3eb3f7, #f81111);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.payroll-table tr:nth-child(even) {
+  background-color: rgba(51, 51, 51, 0.7);
+}
+
+.payroll-table tr:hover {
+  background-color: rgba(51, 51, 51, 0.9);
+}
+
+@media (max-width: 900px) {
+  .payroll-table, .payroll-table thead, .payroll-table tbody, .payroll-table th, .payroll-table td, .payroll-table tr {
+    display: block;
+    width: 100%;
+  }
+  .payroll-table thead {
+    display: none;
+  }
+  .payroll-table tr {
+    margin-bottom: 18px;
+    background: rgba(0,0,0,0.85);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 10px 0;
+  }
+  .payroll-table td {
+    text-align: left;
+    border: none;
+    padding: 10px 20px;
+    position: relative;
+  }
+  .payroll-table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #3eb3f7;
+    display: block;
+    margin-bottom: 6px;
+  }
+}
+
+/* EditServices Page Styles */
+.edit-error-message {
+  color: red;
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
+.edit-services-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.edit-service-item {
+  margin-bottom: 1em;
+  background: rgba(0,0,0,0.7);
+  border-radius: 8px;
+  padding: 1em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.edit-input {
+  margin-right: 0.5em;
+  padding: 0.3em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.edit-input-price {
+  width: 90px;
+}
+.edit-input-description {
+  width: 220px;
+}
+
+.edit-service-edit-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5em;
+}
+
+.edit-btn {
+  border: none;
+  border-radius: 4px;
+  padding: 0.4em 1em;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  margin-bottom: 0.5em;
+}
+.save-btn {
+  background: #3eb3f7;
+}
+.cancel-btn {
+  background: #aaa;
+  margin-bottom: 0;
+}
+.edit-service-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5em;
+  gap: 0.5em;
+}
+.edit-btn-edit {
+  background: #3eb3f7;
+}
+.delete-btn {
+  background: #e74c3c;
+}
+.add-btn {
+  background: #3eb3f7;
+}
+.service-name {
+  font-size: 1.1em;
+}
+.service-price-edit {
+  color: #3eb3f7;
+  font-weight: bold;
+}
+.edit-service-form {
+  margin-top: 2em;
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+  padding: 1em;
+  max-width: 600px;
+  margin: 2em auto 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.edit-service-form-title {
+  margin-bottom: 0.5em;
+}
+
 /*Page Styles */
 .register,
 .login,
@@ -82,10 +320,11 @@ a {
 .pending-appointments,
 .assigned-appointments,
 .employee-service-history,
+.admin-service-history,
 .reset-password,
-.history-box,
+.customer-history,
 .edit-profile,
-.approve-hours,
+.status-section,
 .manage-employee {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
@@ -928,6 +1167,25 @@ h1 {
   background-color: #1e7e34;
 }
 
+.cancel-button {
+  background-color: #a72828;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #882121;
+}
+
+.cancel-button:active {
+  background-color: #7e1e1e;
+}
+
 /* Message Styles */
 .message {
   text-align: center;
@@ -1027,160 +1285,4 @@ h1 {
   justify-content: space-between;
   gap: 25px;
   margin-top: 20px;
-}
-
-.history-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-}
-
-.hours-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  overflow: hidden;
-  
-}
-.hours-table th,
-.hours-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-  color: white;
-}
-.hours-table th {
-  background-color: rgba(51, 51, 51, 0.9);
-  font-weight: bold;
-  text-align: center;
-}
-.hours-table td {
-  text-align: center;
-}
-.hours-table tr:nth-child(even) {
-  background-color: rgba(51, 51, 51, 0.7);
-}
-.hours-table tr:hover {
-  background-color: rgba(51, 51, 51, 0.9);
-}
-.no-submissions {
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 30px;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-.status-badge {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-.status-badge.pending {
-  background-color: 
-#007bff;
-  color: #ffffff;
-}
-.status-badge.approved {
-  background-color: 
-#2ecc71;
-  color: #000;
-}
-.status-badge.rejected {
-  background-color: 
-#e74c3c;
-  color: #fff;
-}
-.status-badge.unknown {
-  background-color: 
-#95a5a6;
-  color: #000;
-}
-@media (max-width: 960px) {
-  .hours-table {
-    display: block;
-    overflow-x: auto;
-  }
-
-  .approve-hours h1 {
-    font-size: 2rem;
-    }
-}
-
-.refresh-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.approve-btn {
-  background-color: #007bff;
-  border-radius: 5px;
-  color: white;
-  border: 2px;
-  padding: 4px 3px;
-  cursor: pointer;
-}
-
-.deny-btn{
-  background-color: #007bff;
-  border-radius: 5px;
-  color: white;
-  border: none;
-  padding: 4px 3px;
-  cursor: pointer;
-  border: 2px;
-  margin-left: 10px;
-}
-
-.filter-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px 0;
-  flex-wrap: wrap;
-}
-
-.status-filter {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.status-select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  font-size: 14px;
-}
-
-.status-badge.approved {
-  background-color: #28a745;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 8px;
-}
-
-.status-badge.rejected {
-  background-color: #dc3545;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 8px;
-}
-
-.status-badge.pending {
-  background-color: #007bff;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 8px;
 }

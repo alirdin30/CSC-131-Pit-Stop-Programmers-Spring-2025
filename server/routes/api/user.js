@@ -35,7 +35,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, name, password, role } = req.body;
+    const { email, name, password, role, hourlyPay } = req.body;
 
     try {
       // Check if the user already exists
@@ -62,6 +62,8 @@ router.post(
         name,
         password: hashedPassword,
         role: role || "customer", // Default role is customer
+        // Always include hourlyPay for employees (default to 0 if not provided)
+        ...(role === "employee" ? { hourlyPay: hourlyPay || 0 } : {})
       });
 
       await user.save();
@@ -88,7 +90,7 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, password } = req.body;
+    const { name, password, hourlyPay } = req.body;
 
     try {
       const user = await User.findOne({ email: req.params.email });
@@ -103,6 +105,7 @@ router.put(
         user.password = await bcrypt.hash(password, salt);
       }
 
+      if (hourlyPay !== undefined && user.role === "employee") user.hourlyPay = hourlyPay;
       await user.save();
       res.status(200).json({ message: "User updated successfully", user });
     } catch (err) {

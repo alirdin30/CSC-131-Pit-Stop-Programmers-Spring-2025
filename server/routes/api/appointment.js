@@ -76,8 +76,8 @@ router.post(
 router.get('/api/appointments', auth, async (req, res) => {
   try {
     const appointments = await Appointment.find().populate('user', 'name').populate('assignedEmployee', 'name');
-    console.log({ appointments, loggedInEmployeeId: req.user.id });
-    res.status(200).json({ appointments, loggedInEmployeeId: req.user.id });
+    console.log({ appointments, loggedInUserId: req.user.id });
+    res.status(200).json({ appointments, loggedInUserId: req.user.id });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: 'Server error' });
@@ -101,6 +101,29 @@ router.put('/api/appointments/:id/assign', auth, async (req, res) => {
     res.status(200).json({ message: "Appointment assigned successfully", appointment });
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// @route   PUT /api/appointments/:id/notes
+// @desc    Update notes for an appointment (assigned employee only)
+// @access  Private
+router.put('/api/appointments/:id/notes', auth, async (req, res) => {
+  try {
+    const { notes } = req.body;
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+    // Only assigned employee can edit notes
+    if (!appointment.assignedEmployee || appointment.assignedEmployee.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Not authorized to add notes to this appointment" });
+    }
+    appointment.notes = notes || '';
+    await appointment.save();
+    res.status(200).json({ message: "Notes updated successfully", appointment });
+  } catch (error) {
+    console.error("Error updating appointment notes:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -129,6 +152,48 @@ router.put('/api/appointments/:id', auth, async (req, res) => {
     console.error("Error updating appointment status:", error.message);
     res.status(500).json({ message: "Server error" });
   }
+
+// @route   GET /api/appointments/service-revenue
+// @desc    Get the total revenue for each service
+// @access  Private
+router.get('/api/appointments/service-revenue', auth, async (req, res) => {
+  try {
+    const serviceRevenue = await Appointment.aggregate([
+      {
+        $group: {
+          _id: "$service", // Group by the "service" field
+          count: { $sum: 1 }, // Count the number of occurrences
+        },
+      },
+      {
+        $lookup: {
+          preserveNullAndEmptyArrays: true, // Include services with no appointments
+          from: "services", // Join with the "services" collection
+          localField: "_id", // Match the "_id" (service name) in appointments
+          foreignField: "name", // Match the "name" in services
+          as: "serviceDetails",
+        },
+      },
+      {
+        $unwind: "$serviceDetails", // Unwind the service details array
+      },
+      {
+        $project: {
+          _id: 1, // Service name
+          count: 1, // Number of times the service was sold
+          price: { $toDouble: "$serviceDetails.price" }, // Convert price to a number
+          revenue: { $multiply: ["$count", { $toDouble: "$serviceDetails.price" }] }, // Calculate revenue
+        },
+      },
+    ]);
+
+    res.status(200).json(serviceRevenue);
+  } catch (error) {
+    console.error("Error fetching service revenue:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 });
 
 export default router;
